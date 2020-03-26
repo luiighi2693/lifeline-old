@@ -1,0 +1,224 @@
+<!-- [INIT LOADING PROCESO DE VALIDACION NLAD] -->
+
+<div class="popupbg" *ngIf="processValidationNLAD">
+  <div class="popupcont morew">
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="font-size: 1.4rem;">
+            El caso se encuentra en proceso de verificaci&oacute;n por el (NV). Consulte su caso a trav&eacute;s de la secci&oacute;n de "Consultar Casos" para verificar el estatus de la solicitud.
+          </div>
+        </div>
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="display: flex; justify-content: center;">
+            <a
+              (click)="goTo('home')"
+              class="btns def-i pull-left vcenter red"
+            >
+                    <span class="tabcell">
+                      Ok
+                    </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="popupbg" *ngIf="processValidationApplicationId">
+  <div class="popupcont morew">
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="font-size: 1.4rem;">
+            El n&uacute;mero de aplicaci&oacute;n ingresado no pudo ser validado por el National Verifier por lo que se cre&oacute; una nueva elegibilidad para esta solicitud.
+          </div>
+        </div>
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="display: flex; justify-content: center;">
+            <a
+              (click)="processValidationApplicationId = !processValidationApplicationId"
+              class="btns def-i pull-left vcenter red"
+            >
+                    <span class="tabcell">
+                      Ok
+                    </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING PROCESO DE VALIDACION NLAD] -->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Registro de Solicitud
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center">
+          <app-steplife></app-steplife>
+        </div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow text-center">
+                <div class="rdtitles"><span class="roboto-b">&#161;Gracias</span> por tu solicitud&#33;</div>
+              </div>
+
+              <div class="greenmsg m-top-i">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                Hemos registrado tu Solicitud Servicio Universal con
+                <span class="roboto-b">N&uacute;mero de Caso: {{ dataObjectAddress[0].CASENUMBER }}</span>
+              </div>
+
+              <div class="userinfo full">
+                <div class="basicrow f-black roboto-b f-bmed">Resumen de Registro</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre / Apellido</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ getSnn(dataObjectAddress[0].SSN) }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha de Nacimiento</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    <!-- 01/01/1991 -->
+                    {{ getFormatDateCustom(dataObjectAddress[0].DOB) }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Numeros de Telefono</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].contactNumber1 }}
+                  </div>
+                  <br/>
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].contactNumber2 }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Direcci&oacute;n F&iacute;sica</div>
+
+                  <div class="basicrow roboto-b m-top-ii">
+                    {{ dataObjectAddress[0].CUSTOMERADDRESS }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Direcci&oacute;n Postal</div>
+
+                  <div class="basicrow roboto-b m-top-ii">
+                    {{ dataObjectAddress[2].SUGGESTADDRESS }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Nro. de Aplicación</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ subscriberVerificationObject.applicationId }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Estatus</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ subscriberVerificationObject.status }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Suscriptor Activo</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ subscriberVerificationObject.activeSubscriber === 'N' ? 'NO' : 'SI' }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Posibles Fallas</div>
+
+                  <div *ngFor="let fail of subscriberVerificationObject.failures">
+                    <div class="autorow roboto-b pull-right">
+                      {{ fail }}
+                    </div>
+                    <br/>
+                  </div>
+                </div>
+
+
+                <div class="redstat m-top-ii" *ngIf="subscriberVerificationObject._links.resolution.href !== ''">
+                  <div class="basicrow roboto-r">URL</div>
+
+                  <div class="basicrow roboto-b m-top-ii">
+                    <a [href]="subscriberVerificationObject._links.resolution.href" target="_blank">https://www.usac.org/lifeline/elegibility/national-verifier/</a>
+                  </div>
+                </div>
+
+              </div>
+              <div class="basicrow">
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goHome()"
+                    class="btns def-i pull-left vcenter gray"
+                  >
+                    <span class="tabcell">
+                      Regresar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                  <a
+                    (click)="goToUsfVerification()"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{ red: subscriberVerificationObject.status === 'COMPLETE' && subscriberVerificationObject.activeSubscriber === 'N'}"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

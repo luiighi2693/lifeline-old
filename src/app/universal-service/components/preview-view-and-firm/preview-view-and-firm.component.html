@@ -1,0 +1,653 @@
+<!-- [INIT LOADING SUSCRIBER ACTIVATION] -->
+<div class="popupbg" *ngIf="suscriberActivation">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i">
+            <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia el proceso de reserva de suscriptor
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 1">
+  <div class="popupcont morew-iic container-firm">
+    <!-- Maquetacion Formulario1 -->
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <h3 style="color:#009ada;font-family: 'robotoregular';font-size: 17pt;">Programa de Lifeline:</h3>
+          <h3 style="color:#009ada;font-family: 'robotobold';font-size: 17pt;font-weight: bold;padding-bottom: 10px;">
+            Hoja de Hogar
+          </h3>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <img
+            style="width: auto;max-height: 60px;right: 0px;position: absolute;padding-bottom: 1em;"
+            src="../../../../assets/images/formlogo.png"
+          />
+        </div>
+      </div>
+      <div class="row ln-top">
+        <div class="col-xs-3">
+          <h2 style="font-weight: bold;">Acuerdo</h2>
+          <span> Inicia el siguiente Acuerdo y escribe a tu firma y a la fecha.</span>
+          <span class="txt-silver">
+            Entrega esta hoja a tu proveedor de servicios con la programa de Lifeline Forma de Aplicación.
+          </span>
+          <span class="txt-silver sub">
+            Doy mi consentimiento para que USAC me contacte en mi número de teléfono Lifeline para recibir recordatorios
+            y actualizaciones importantes sobre mi servicio de Lifeline. Se puede aplicar tarifas de mensajes y datos.
+            Envié STOP por mensaje de texto para detener a los mensajes.
+          </span>
+        </div>
+        <div class="col-xs-9">
+          <ul class="list-form-1">
+            <li>
+              <input
+                type="text"
+                class="inputCustom"
+                maxlength="2"
+                [(ngModel)]="iniciales"
+                (keyup)="procesarIniciales($event, 1)"
+              />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>A) Vivo en una direccion con más de un hogar.</p>
+            </li>
+            <li>
+              <input
+                type="text"
+                [ngClass]="{ red: !validateInicialesF1(), inputCustom: true }"
+                maxlength="2"
+                [(ngModel)]="inicialesF1"
+                (keyup)="procesarIniciales($event, 2)"
+              />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                B) Entiendo que el limite de un solo hogar es una regla de la Comision Federal de Comunicaciones
+                (Federal Comunications Commission, FCC por sus siglas en inglés) y que perderé a mi beneficio de
+                Lifeline si rompo esta regla.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //CIERRE Maquetacion Formulario1 -->
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1" style="height: 300px">
+          <div class="basicrow msidespad" style="height: 300px">
+            <div class="autowcont lifehomedef m-top" style="height: 300px">
+              <div class="basicrow msidespad">
+                <div class="b-title" style="height: 55px">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter" style="width: 100%;">
+                    <div class="tabcell">
+                      <img
+                        width="100%"
+                        class="lifehomeicons"
+                        style="cursor: default;user-select: none;"
+                        src="../../assets/images/lifecrt-icon.png"
+                      />
+
+                      <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
+                        Firma Digital
+                        <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                    <div class="basicrow rel pull-right" style="max-width: 200px;padding: 5px 0px;">
+                      <i
+                        class="fa fa-calendar inpcal-icon"
+                        aria-hidden="true"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                      ></i>
+                      <input
+                        class="inp-f qt"
+                        [(ngModel)]="fechaN"
+                        id="fechaN"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                        disabled="disabled"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i" style="height: 220px">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a
+        (click)="goToActivation()"
+        [ngClass]="{
+          btns: true,
+          'def-i': true,
+          red: validateSing() && validateInicialesF1(),
+          gray: !validateSing() || !validateInicialesF1(),
+          centr: true,
+          vcenter: true
+        }"
+      >
+        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 2">
+  <div class="popupcont morew-iic container-firm">
+    <!-- Maquetacion Formulario2 -->
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <h3 style="color:#009ada;font-family: 'robotoregular';font-size: 17pt;">Programa de Lifeline:</h3>
+          <h3 style="color:#009ada;font-family: 'robotobold';font-size: 17pt;font-weight: bold;">
+            Formulario de Aplicaci&oacute;n
+          </h3>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <img
+            style="width: auto;max-height: 60px;right: 0px;position: absolute;padding-bottom: 1em;"
+            src="../../../../assets/images/formlogo.png"
+          />
+        </div>
+      </div>
+      <div class="row ln-top">
+        <div class="col-xs-3">
+          <h2 style="font-weight: bold;">4. Acuerdo</h2>
+          <span> Acepto, bajo pena de prejuicio, las siguientes declaraciones: </span>
+          <span class="txt-orange"> Ingrese sus iniciales junto a cada declaración. </span>
+        </div>
+        <div class="col-xs-9">
+          <ul class="list-form-1">
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[0]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Actualmente, yo (o mi dependiente u otra persona en mi hogar) recibo beneficios del programa de gobierno
+                enumerada en este formulario o los ingresos anuales de mi hogar son iguales o menores al 135% de las
+                Guías Federales de Pobreza (la cantidad enumerada en la tabla de Guías Federales de Pobreza en este
+                formulario).
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[1]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Estoy de acuerdo en que si me mudo, le daré a mi proveedor de servicios mi nueva dirección dentro de 30
+                días.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[2]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Entiendo que necesito informar a mi proveedor de servicios dentro de 30 días si ya no califico para
+                Lifeline, incluyendo:<br />
+                1) Yo, o la persona de mi hogar que califica, ya no califico a través de un programa de gobierno o de
+                ingresos. <br />
+                2) Yo o alguien en mi hogar recibe más de un beneficio de Lifeline (incluyendo, más de un servicio de
+                internet de banda ancha Lifeline, más de un servicio telefónico Lifeline, o los dos servicios telefónico
+                Lifeline e internet de banda ancha Lifeline).
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[3]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Sé que mi hogar sólo puede obtener un beneficio de Lifeline y, a mi entender, mi familia no recibe más
+                de un beneficio de Lifeline.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[4]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Estoy de acuerdo en que mi proveedor de servicios pueda darle al administrador del Programa de Lifeline
+                toda la información que estoy dando en este formulario. Entiendo que esta información está destinada a
+                ayudar a ejercer al Programa de Lifeline y que si no permito que lo entreguen al administrador, no podré
+                obtener los beneficios de Lifeline.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[5]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Todas las respuestas y acuerdos que he escrito en este formulario son verdaderos y correctos a mi
+                entender.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[6]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Sé que dar información falsa o fraudulenta voluntariamente para obtener beneficios del Programa de
+                Lifeline es castigable por la ley y puede resultar en multas, tiempo de cárcel, la cancelación de mi
+                suscripción, o exclusión del programa.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[7]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Es posible que en cualquier momento, mi proveedor de servicios tenga que comprobar si todavía califico.
+                Si necesito recertificar (renovar) a mi beneficio de Lifeline, entiendo que tengo que responder antes de
+                la fecha límite o que me eliminarán del Programa de Lifeline y mi beneficio Lifeline parará.
+              </p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="inicialesF2[8]" />
+              <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                Yo fui sincero cuando indiqué si vivo o no vivo en tierras tribales, como se define en la sección 2 de
+                este formulario.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //CIERRE Maquetacion Formulario2 -->
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1" style="height:300px">
+          <div class="basicrow msidespad" style="height:300px">
+            <div class="autowcont lifehomedef m-top" style="height:300px">
+              <div class="basicrow msidespad">
+                <div class="b-title" style="height: 55px">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter" style="width: 100%;">
+                    <div class="tabcell">
+                      <img
+                        width="100%"
+                        class="lifehomeicons"
+                        style="cursor: default;user-select: none;"
+                        src="../../assets/images/lifecrt-icon.png"
+                      />
+
+                      <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
+                        Firma Digital
+                        <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                    <div class="basicrow rel pull-right" style="max-width: 200px;padding: 5px 0px;">
+                      <i
+                        class="fa fa-calendar inpcal-icon"
+                        aria-hidden="true"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                      ></i>
+                      <input
+                        class="inp-f qt"
+                        [(ngModel)]="fechaN"
+                        id="fechaN"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                        disabled="disabled"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i" style="height:220px">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a
+        (click)="goToActivation()"
+        [ngClass]="{
+          btns: true,
+          'def-i': true,
+          red: validateSing() && validateInicialesF2(),
+          gray: !validateSing() || !validateInicialesF2(),
+          centr: true,
+          vcenter: true
+        }"
+      >
+        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 3">
+  <div class="popupcont morew-iic container-firm">
+    <!-- Maquetacion Formulario3 -->
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <img style="width: auto;max-height: 92px;" src="../../../../assets/images/clarolifeformlogo.png" />
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+          <h3 style="color:#000;font-family: 'robotoregular';font-size: 25pt;">
+            ANEJO 1 FCC FORM 5629- Programa de Lifeline: Forma de Aplición
+          </h3>
+        </div>
+      </div>
+      <div class="row ln-top">
+        <div class="col-xs-12">
+          <h1>6. Información adicional</h1>
+          <ul class="list-form-1">
+            <li>
+              <!-- <input type="text" class="inputCustom inputCustom2" maxlength="2" />  checked="checked" -->
+              <label class="checkbox-list__item">
+                <input class="checkbox_buttons" type="checkbox" [(ngModel)]="check3erPopup" style="display: none;" />
+                <div class="checkbox-list__check"></div>
+              </label>
+              <p>
+                Con este consentimiento <span class="roboto-b">AUTORIZO</span> el uso de mis iniciales y firmas en
+                formato electr&oacute;nico, y <span class="roboto-b">CERTIFICO</span> que son de mi autor&iacute;a como
+                si estuvieran en manuscrito. Espec&iacute;ficamente, <span class="roboto-b">ACEPTO</span> que el uso de
+                mis iniciales y firma electr&oacute;nica para los prop&oacute;sitos de esta solicitud es legal y
+                vinculante, y que no se le restar&aacute; efecto o validez al mismo por el hecho de estar en formato
+                electr&oacute;nico.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //CIERRE Maquetacion Formulario3 -->
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1" style="height:300px">
+          <div class="basicrow msidespad" style="height:300px">
+            <div class="autowcont lifehomedef m-top" style="height:300px">
+              <div class="basicrow msidespad">
+                <div class="b-title" style="height: 55px">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter" style="width: 100%;">
+                    <div class="tabcell">
+                      <img
+                        width="100%"
+                        class="lifehomeicons"
+                        style="cursor: default;user-select: none;"
+                        src="../../assets/images/lifecrt-icon.png"
+                      />
+
+                      <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
+                        Firma Digital
+                        <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                    <div class="basicrow rel pull-right" style="max-width: 200px;padding: 5px 0px;">
+                      <i
+                        class="fa fa-calendar inpcal-icon"
+                        aria-hidden="true"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                      ></i>
+                      <input
+                        class="inp-f qt"
+                        [(ngModel)]="fechaN"
+                        id="fechaN"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                        disabled="disabled"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i" style="height:220px">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a
+        (click)="goToActivation()"
+        [ngClass]="{
+          btns: true,
+          'def-i': true,
+          red: validateSing() && check3erPopup,
+          gray: !validateSing() || !check3erPopup,
+          centr: true,
+          vcenter: true
+        }"
+      >
+        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Activación de Servicio Universal Prepago
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow" *ngIf="!step2 && !step3 && step1 && !toBackEnd">
+          <div class="basicrow f-lbig f-black roboto-m text-left">Formulario Hoja de Hogar (Programa de Lifeline)</div>
+
+          <div class="basicrow m-top-i">
+            <iframe
+              [src]="
+                sanitizer.bypassSecurityTrustResourceUrl(
+                  previewUrl + 'FrmHogar.aspx?Number=' + userId + '&Case=' + caseId
+                )
+              "
+              width="100%"
+              style="height:600px;  border: none;"
+            >
+            </iframe>
+          </div>
+
+          <div class="basicrow">
+            <div class="basicrow text-center m-top-i">
+              <a (click)="showFirmInput()" class="btns def-i red pull-right vcenter">
+                <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+              </a>
+
+              <!--              <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">-->
+              <!--                <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar </span>-->
+              <!--              </a>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="basicrow" *ngIf="step2 && !step3 && !step1 && !toBackEnd">
+          <div class="basicrow f-lbig f-black roboto-m text-left">
+            Formulario de Aplicaci&oacute;n (Programa de Lifeline)
+          </div>
+
+          <div class="basicrow m-top-i">
+            <iframe
+              [src]="
+                sanitizer.bypassSecurityTrustResourceUrl(
+                  previewUrl + 'frmfccAplication.aspx?Number=' + userId + '&Case=' + caseId
+                )
+              "
+              width="100%"
+              style="min-height:600px;    border: none;"
+            >
+            </iframe>
+          </div>
+
+          <div class="basicrow">
+            <div class="basicrow text-center m-top-i">
+              <a (click)="showFirmInput()" class="btns def-i red pull-right vcenter">
+                <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+              </a>
+
+              <!--              <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">-->
+              <!--                <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar </span>-->
+              <!--              </a>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="basicrow" *ngIf="!step2 && step3 && !step1 && !toBackEnd">
+          <div class="basicrow f-lbig f-black roboto-m text-left">Anejo 1 Información Adicional</div>
+
+          <div class="basicrow m-top-i">
+            <iframe
+              [src]="
+                sanitizer.bypassSecurityTrustResourceUrl(
+                  previewUrl + 'frmclaro.aspx?Number=' + userId + '&Case=' + caseId
+                )
+              "
+              width="100%"
+              style="min-height:600px;    border: none;"
+            >
+            </iframe>
+          </div>
+
+          <div class="basicrow">
+            <div class="basicrow text-center m-top-i">
+              <a (click)="showFirmInput()" class="btns def-i red pull-right vcenter">
+                <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+              </a>
+
+              <!--              <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">-->
+              <!--                <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar </span>-->
+              <!--              </a>-->
+            </div>
+          </div>
+        </div>
+
+        <!-- manejo de error cuando es enviado al BackEnd -->
+        <div *ngIf="toBackEnd" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ msjError }}</div>
+
+              <div class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ dataObjectAddress[0].SSN }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ caseIDReject }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right">{{ banNumber }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right">Prepago Móvil</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div class="autorow roboto-b pull-right">{{ suscriberNumber }}</div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{
+                      dataObjectAddress[2].SUGGESTADDRESS !== ''
+                        ? dataObjectAddress[2].SUGGESTADDRESS
+                        : dataObjectAddress[0].CUSTOMERADDRESS
+                    }}
+                  </div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ currentDate.yy + '-' + currentDate.mm + '-' + currentDate.dd }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goTo('/home')"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //CIERRE manejo de error cuando es enviado al BackEnd -->
+      </div>
+    </div>
+  </div>
+</div>

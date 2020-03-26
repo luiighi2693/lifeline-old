@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  </head>
+  <body>
+    Por favor espere...
+    <form name="form3" id="form3" method="get" action="" style="display: none;">
+      <input type="text" id="username" name="username" value="" /> <br />
+      <input type="text" id="password" name="password" value="" /> <br />
+      <input type="text" id="docid" name="docid" value="" /> <br />
+      <input type="text" id="clienttype" name="clienttype" value="" /> <br />
+      <input type="submit" id="btnSent" value="Enviar" />
+    </form>
+    <script>
+      function getURLParameter(name) {
+        return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
+      }
+
+      // DEV
+      document.getElementById('form3').action = 'https://server.docsolutions-pr.com/AppNet/docpop/docpop.aspx';
+      // PROD
+      // document.getElementById('form3').action = 'https://claropr.onbaseonline.com/1601AppNet/docpop/docpop.aspx';
+      document.getElementById('username').value = getURLParameter('username');
+      document.getElementById('password').value = getURLParameter('password');
+      document.getElementById('docid').value = getURLParameter('docid');
+      document.getElementById('clienttype').value = getURLParameter('clienttype');
+      /*document.getElementById("sURL").value=getURLParameter("sURL");*/
+      document.getElementById('form3').submit();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!-- [INIT LOADING SUSCRIBER ACTIVATION] -->
+<!--<div class="popupbg" *ngIf="suscriberActivation">-->
+<!--<div class="popupcont morew">-->
+<!--<div class="basicrow text-center">-->
+<!--<img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />-->
+<!--</div>-->
+
+<!--<div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>-->
+
+<!--<div class="basicrow f-bmed f-black roboto-r">-->
+<!--<div class="row">-->
+<!--<div-->
+<!--class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"-->
+<!--&gt;-->
+<!--<div class="basicrow m-top-i">-->
+<!--<i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia el proceso de reserva de suscriptor-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Confirmación
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow text-center">
+                <div class="rdtitles"><span class="roboto-b">Confirmaci&oacute;n</span></div>
+              </div>
+
+              <div class="greenmsg m-top-i">
+                <i class="fa fa-check-circle staytop" aria-hidden="true"></i>
+
+                <span class="roboto-b">{{ model.CUSTOMER_NAME + ' ' + model.CUSTOMER_LAST }}</span
+                ><br /><br />
+
+                Tu solicitud de Servicio Universal se encuentra en proceso de aprobaci&oacute;n bajo el
+                <span class="roboto-b">N&uacute;mero de Caso: {{ model.USF_CASEID }}.</span><br /><br />
+
+                <span class="roboto-b">Su N&uacute;mero de Cuenta en Claro: {{ model.mBan }}.</span><br /><br />
+
+                <span class="roboto-b">{{ message }} {{ suscriberNumber }}.</span><br /><br />
+
+                De requerir informaci&oacute;n adicional un agente de servicio al cliente estar&aacute; en contacto con
+                usted.
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow text-center m-top-u">
+                  <a (click)="goToHome()" class="btns def-i red centr vcenter">
+                    <span class="tabcell">
+                      Finalizar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

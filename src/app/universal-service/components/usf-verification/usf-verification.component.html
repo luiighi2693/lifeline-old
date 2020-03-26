@@ -1,0 +1,231 @@
+<!-- [INIT LOADING PROCESO DE VALIDACION NLAD] -->
+<!----
+<div class="popupbg" *ngIf="processValidationNLAD">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el Proceso de
+            Validaci&oacute;n National Verifier
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  ---->
+
+<!-- [END LOADING PROCESO DE VALIDACION NLAD] -->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Información adicional
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Datos del Dependiente</div>
+
+              <div class="basicrow f-med f-black roboto-b m-top">
+                &#191;Cu&aacute;l es el nombre legal completo de tu hijo o dependiente&#63;
+              </div>
+
+              <div class="basicrow m-top">
+                <label class="label-f">&#42; Sufijo</label>
+
+                <div class="basicrow">
+                  <select
+                    class="sel-f sufix"
+                    name="sufix"
+                    [(ngModel)]="model.sufix"
+                    [formControl]="form.controls['sufix']"
+                  >
+                    <option [value]="''" disabled selected hidden>Seleccionar</option>
+                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{ sufix }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Nombre</label>
+
+                <div class="basicrow">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    [(ngModel)]="model.firstName"
+                    [formControl]="form.controls['firstName']"
+                  />
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">Segundo Nombre (Opcional)</label>
+
+                <div class="basicrow">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="18"
+                    class="inp-f"
+                    [(ngModel)]="model.secondName"
+                    [formControl]="form.controls['secondName']"
+                  />
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Apellido</label>
+
+                <div class="basicrow">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    [(ngModel)]="model.lastName"
+                    [formControl]="form.controls['lastName']"
+                  />
+                </div>
+              </div>
+
+              <div class="basicrow f-med f-black roboto-b m-top-i">
+                &#191;Cu&aacute;l es su fecha de nacimiento&#63;
+              </div>
+
+              <div class="basicrow">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; Fecha de Nacimiento</label>
+
+                      <div class="basicrow rel">
+                        <!--
+                            <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
+                          <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1918, month: 1, day: 1}" [maxDate]="{year: 2001, month: 1, day: 1}" [(ngModel)]="model.birthday" [formControl]="form.controls['birthday']">
+                        -->
+                        <!-- Nueva Aqui Abajo Usando datepicker -->
+                        <i
+                          class="fa fa-calendar inpcal-icon"
+                          aria-hidden="true"
+                          (click)="activarDatepickerFechaN()"
+                          style="margin-top: 10px;"
+                        ></i>
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          id="inputControl3"
+                          [(ngModel)]="model.birthday"
+                          [formControl]="form.controls['birthday']"
+                          #ic_fecha3
+                          (blur)="ic_blur()"
+                          (click)="activarDatepickerFechaN()"
+                          (keyup)="ic_key_up()"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow f-med f-black roboto-b m-top-i">
+                &#191;Cu&aacute;l es el n&uacute;mero de Seguro Social (SSN) de tu hijo o dependiente&#63;
+              </div>
+
+              <div class="basicrow">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; SSN</label>
+
+                      <div class="basicrow">
+                        <input
+                          type="text"
+                          (keypress)="checkNumbersOnly($event)"
+                          (keyup)="formatInputSocialSecure('socialSecure')"
+                          maxlength="11"
+                          name="socialSecure"
+                          [(ngModel)]="model.socialSecure"
+                          (focus)="onFocusSSN()"
+                          (blur)="onBlurSSN()"
+                          [formControl]="form.controls['socialSecure']"
+                          class="inp-f"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="basicrow f-med f-black roboto-b m-top-i"> -->
+              <!-- N&uacute;meros de contacto -->
+              <!-- </div> -->
+
+              <!-- <div class="basicrow"> -->
+              <!-- <div class="row"> -->
+              <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+              <!-- <div class="basicrow m-top"> -->
+              <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 1</label> -->
+
+              <!-- <div class="basicrow"> -->
+              <!-- <input class="inp-f"> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+
+              <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+              <!-- <div class="basicrow m-top"> -->
+              <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 2</label> -->
+
+              <!-- <div class="basicrow"> -->
+              <!-- <input class="inp-f"> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToDocumentDigitalization()"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{ red: form.valid && this.model.socialSecure.length === 11 }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+
+                  <a (click)="back()" class="btns def-i gray pull-left vcenter">
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

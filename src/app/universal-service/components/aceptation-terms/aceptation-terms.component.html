@@ -1,0 +1,239 @@
+<div class="popupbg" *ngIf="processValidation">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <!-- <div class="basicrow m-top-i"> -->
+          <!--
+            <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia proceso de creaci&oacute;n de cuenta
+          -->
+          <!-- </div> -->
+
+          <!-- <div class="basicrow m-top"> -->
+          <!--
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia proceso de reserva
+          -->
+          <!-- de subscritor -->
+          <!-- </div> -->
+
+          <div class="basicrow m-top">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia proceso de reserva
+            de suscriptor
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Aceptación de términos
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div *ngIf="!toBackEnd" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Informaci&oacute;n de Compra</div>
+
+              <div class="basicrow m-top">
+                <label class="label-f">&#42; Restricci&oacute;n LDI</label>
+
+                <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                  <div class="popopt">
+                    <input
+                      type="radio"
+                      name="ldiRestriction"
+                      [value]="true"
+                      [(ngModel)]="model.ldiRestriction"
+                      [formControl]="form.controls['ldiRestriction']"
+                    />
+                    Si
+                  </div>
+
+                  <div class="popopt">
+                    <input
+                      type="radio"
+                      name="ldiRestriction"
+                      [value]="false"
+                      [(ngModel)]="model.ldiRestriction"
+                      [formControl]="form.controls['ldiRestriction']"
+                    />
+                    No
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top">
+                  <div class="termgbg">
+                    <div class="basicrow roboto-b f-reg">&#42; T&eacute;rminos y Condiciones</div>
+
+                    <div class="termr-t m-top-ii" style="    font-size: 1.5rem;">
+                      “Con este consentimiento AUTORIZO el uso de mis iniciales y firmas en formato electrónico, y
+                      CERTIFICO que son de mi autoría como si estuvieran en manuscrito. Específicamente, ACEPTO que el
+                      uso de mis iniciales y firma electrónica para los propósitos de esta solicitud es legal y
+                      vinculante, y que no se le restará efecto o validez al mismo por el hecho de estar en formato
+                      electrónico.
+                    </div>
+
+                    <div class="basicrow m-top">
+                      <a
+                        (click)="setAceptationTerms(true)"
+                        class="btns termdef pull-right vcenter"
+                        [ngClass]="{
+                          gray: model.aceptationTerm,
+                          blue: !model.aceptationTerm
+                        }"
+                      >
+                        <span class="tabcell"> Aceptar T&eacute;rminos </span>
+                      </a>
+
+                      <a
+                        (click)="setAceptationTerms(false)"
+                        class="linkdefs termdef"
+                        [ngClass]="{
+                          grayLink: model.aceptationTerm,
+                          blue: !model.aceptationTerm
+                        }"
+                      >
+                        No Acepto
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="redbgbadmsg error m-top-i" *ngIf="model.aceptationTerm === false">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                Debe aceptar los Términos y Condiciones para poder procesar su solicitud
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToPreviewViewAndFirm()"
+                    class="btns def-i red pull-right vcenter gray"
+                    [ngClass]="{ red: validateForm() }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+
+                  <!--                  <a (click)="goToAccountCreation()" class="btns def-i gray pull-left vcenter">-->
+                  <!--                    <span class="tabcell">-->
+                  <!--                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar-->
+                  <!--                    </span>-->
+                  <!--                  </a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="toBackEnd" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ msjError }}</div>
+
+              <div class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ dataObjectAddress[0].SSN }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ caseIDReject }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right">{{ banNumber }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right">Prepago Móvil</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div class="autorow roboto-b pull-right">{{ suscriberNumber }}</div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{
+                      dataObjectAddress[2].SUGGESTADDRESS !== ''
+                        ? dataObjectAddress[2].SUGGESTADDRESS
+                        : dataObjectAddress[0].CUSTOMERADDRESS
+                    }}
+                  </div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ currentDate.yy + '-' + currentDate.mm + '-' + currentDate.dd }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goTo('/home')"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

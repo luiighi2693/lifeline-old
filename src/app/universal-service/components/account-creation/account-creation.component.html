@@ -1,0 +1,386 @@
+<!-- [INIT LOADING DATOS PERSONALES] -->
+
+<div class="popupbg" *ngIf="processValidationSIF">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <!-- <div class="basicrow m-top-i"> -->
+          <!--
+            <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia proceso de creaci&oacute;n de cuenta
+          -->
+          <!-- </div> -->
+
+          <!-- <div class="basicrow m-top"> -->
+          <!--
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia proceso de reserva
+          -->
+          <!-- de subscritor -->
+          <!-- </div> -->
+
+          <div class="basicrow m-top" *ngIf="!stepOneDone">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia proceso de
+            creaci&oacute;n de cuenta
+          </div>
+
+          <div class="basicrow m-top-i" *ngIf="stepOneDone">
+            <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia el proceso de creaci&oacute;n de cuenta
+          </div>
+
+          <div class="basicrow m-top">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el proceso de
+            reserva de suscriptor
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS PERSONALES] -->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Apertura de cuenta
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow text-center" *ngIf="!toBackEnd">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Informaci&oacute;n de Compra</div>
+
+              <div class="basicrow m-top">
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; Tipo de Cuenta</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="accountType"
+                            [(ngModel)]="model.accountType"
+                            [formControl]="form.controls['accountType']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="accountType" *ngFor="let accountType of accountTypes">{{
+                              accountType
+                            }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; Tecnolog&iacute;a</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="tecnology"
+                            [(ngModel)]="model.tecnology"
+                            [formControl]="form.controls['tecnology']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="tecnology" *ngFor="let tecnology of tecnologies">{{ tecnology }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; IMEI</label>
+
+                        <div class="basicrow">
+                          <input
+                            type="text"
+                            maxlength="15"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.imei"
+                            [formControl]="form.controls['imei']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; SIM CARD</label>
+
+                        <div class="basicrow">
+                          <input
+                            type="text"
+                            maxlength="20"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.simCard"
+                            [formControl]="form.controls['simCard']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                      *ngIf="model.imei.length !== 15 || model.simCard.length !== 20"
+                    >
+                      <small class="text-danger" translate>
+                        El IMEI o SIM CARD ingresados no se encuentran registrados en nuestros inventarios. Por favor,
+                        verifique e intente nuevamente.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i f-reg f-black roboto-r text-justify">
+                <div class="row">
+                  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <input type="checkbox" (change)="onCheckChange($event)" />
+                  </div>
+
+                  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11" style="padding-left: 0;">
+                    Debe seleccionar esta opci&oacute;n una vez validadado el IMEI y el SIM CARD en el inventario.
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; Tipo de Plan</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="planType"
+                            [formControl]="form.controls['planType']"
+                            (ngModelChange)="setPlan($event)"
+                          >
+                            <option [value]="undefined" disabled selected hidden>Seleccionar</option>
+                            <option [value]="planType.plan" *ngFor="let planType of plans">{{ planType.plan }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="thereIsLocations">
+                      <div class="basicrow">
+                        <label class="label-f">&#42; Localidad</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="location"
+                            [formControl]="form.controls['selectedLocation']"
+                            [(ngModel)]="selectedLocation"
+                          >
+                            <option [value]="undefined" disabled selected hidden>Seleccionar</option>
+                            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i msidespad" style=" padding: 0 !important; display: none;">
+                <label class="label-f" style="width: 25%;">&#42; Restricci&oacute;n LDI</label>
+
+                <div class="popopt">
+                  <input type="radio" name="checkLDI" [value]="true" [(ngModel)]="checkLDI" />
+                  Si
+                </div>
+
+                <div class="popopt">
+                  <input type="radio" name="checkLDI" [value]="false" [(ngModel)]="checkLDI" />
+                  No
+                </div>
+              </div>
+
+              <div class="basicrow afullbrd m-top-i" *ngIf="planSelected">
+                <!-- <div class="plantitle vcenter"><div class="tabcell">Plan Nacional por Minuto</div></div> -->
+
+                <!-- <div class="planprice vcenter"><div class="tabcell">&#36;12.00</div></div> -->
+
+                <div
+                  class="planinfo"
+                  [ngClass]="{ graybg: i % 2 !== 0 }"
+                  *ngFor="let planDetail of planSelected.planDetails; let i = index"
+                >
+                  {{ planDetail }}
+                </div>
+
+                <!-- <div class="planinfo graybg"> -->
+                <!-- SMS y MMS en PR y USA  750 para uso en PR y en USA y a destinos internacionales selectos -->
+                <!-- </div> -->
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToAceptationTerms()"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{
+                      red: form.valid && checkImeiValidated && model.imei.length === 15 && model.simCard.length === 20
+                    }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+
+                  <!--                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">-->
+                  <!--                    <span class="tabcell">-->
+                  <!--                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar-->
+                  <!--                    </span>-->
+                  <!--                  </a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="toBackEnd" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ msjError }}</div>
+
+              <div class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ dataObjectAddress[0].SSN }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ caseIDReject }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right">{{ banNumber }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right">Prepago Móvil</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;meros de tel&eacute;fono</div>
+
+                  <!--                  <div class="autorow roboto-b pull-right">{{ suscriberNumber }}</div>-->
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].contactNumber1 }}
+                  </div>
+                  <br />
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].contactNumber2 }}
+                  </div>
+                </div>
+                <!--                <div class="redstat m-top-ii">-->
+                <!--                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>-->
+
+                <!--                  <div class="autorow roboto-b pull-right">-->
+                <!--                    {{-->
+                <!--                      dataObjectAddress[2].SUGGESTADDRESS !== ''-->
+                <!--                        ? dataObjectAddress[2].SUGGESTADDRESS-->
+                <!--                        : dataObjectAddress[0].CUSTOMERADDRESS-->
+                <!--                    }}-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Direcci&oacute;n F&iacute;sica</div>
+
+                  <div class="basicrow roboto-b m-top-ii">
+                    {{ dataObjectAddress[0].CUSTOMERADDRESS }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Direcci&oacute;n Postal</div>
+
+                  <div class="basicrow roboto-b m-top-ii">
+                    {{ getSuggestAddress() }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ currentDate.yy + '-' + currentDate.mm + '-' + currentDate.dd }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goTo('/home')"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

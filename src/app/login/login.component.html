@@ -1,0 +1,85 @@
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top">
+    <div class="container">
+      <div class="basicrow f-title">Lifeline</div>
+
+      <div class="basicrow m-top">
+        <div class="row">
+          <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+            <img width="100%" src="../../assets/images/lifeline-stock.jpg" />
+          </div>
+
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <form class="logside" [formGroup]="loginForm">
+              <div class="basicrow f-bigmed roboto-m">
+                <img width="100%" class="mc-icon" src="../../assets/images/miclaro-icon.png" /> Administraci&oacute;n
+                Servicio Universal
+              </div>
+
+              <div class="basicrow m-top">
+                <label class="label-f">Usuario</label>
+
+                <div class="basicrow">
+                  <input placeholder="Ejemplo: UR1255223" class="inp-f" formControlName="username" />
+                  <small
+                    [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
+                    class="text-danger"
+                    translate
+                  >
+                    Usuario Requerido
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">Contrase&ntilde;a</label>
+
+                <div class="basicrow">
+                  <input class="inp-f" formControlName="password" type="password" (keyup)="capturaInKey($event)" />
+                  <small
+                    [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
+                    class="text-danger"
+                    translate
+                  >
+                    Clave Requerida
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <a
+                      (click)="login()"
+                      class="btns vcenter"
+                      [ngClass]="{ red: !this.isLoading, gray: this.isLoading }"
+                    >
+                      <span class="tabcell">
+                        Ingresar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </span>
+                    </a>
+
+                    <small *ngIf="error.length !== 0" class="text-danger" translate> {{ error }} </small>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="log-gbg">
+    <div class="container">
+      <div class="basicrow f-bigmed roboto-l text-justify">
+        <span class="roboto-r f-big">&#191;Qu&eacute; es el Servicio Universal&#63;</span><br />
+        Lifeline es un programa de asistencia dirigido a consumidores elegibles de bajos ingresos. El programa ofrece un
+        descuento mediante el cual los consumidores pudieran no pagar o pagar un precio reducido por un servicio de
+        telefon&iacute;a de voz, acceso de banda ancha a Internet, o una combinaci&oacute;n de ambos.
+      </div>
+    </div>
+  </div>
+</div>

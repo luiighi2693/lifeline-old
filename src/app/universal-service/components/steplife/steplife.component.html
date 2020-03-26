@@ -1,0 +1,88 @@
+<div class="stepsvlife">
+  <div class="stepautoc first" [ngClass]="(path === '/universal-service/personal-dates' || path === '/universal-service/usf-verification') ? 'on' : ''">
+    Datos Personales
+
+    <div class="stepcirc text-center">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <!--  <div class="stepautoc secnd" [ngClass]="path === '/universal-service/social-secure-verification' ? 'on' : ''">-->
+  <!--    Verificación Seguro Social-->
+  <!---->
+  <!--    <div class="stepcirc">-->
+  <!--      <div class="circ-in"></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <div class="stepautoc secnd" [ngClass]="path === '/universal-service/address-date' ? 'on' : ''">
+    Datos de Dirección
+
+    <div class="stepcirc">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <div class="stepautoc" [ngClass]="path === '/universal-service/register-case' ? 'on' : ''">
+    Registro de Caso
+
+    <div class="stepcirc">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <!--  <div class="stepautoc" [ngClass]="path === '/universal-service/usf-verification' ? 'on' : ''">-->
+  <!--    Verificación USF-->
+  <!---->
+  <!--    <div class="stepcirc">-->
+  <!--      <div class="circ-in"></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <div class="stepautoc" [ngClass]="path === '/universal-service/document-digitalization' ? 'on' : ''">
+    Digitalización de Documentos
+
+    <div class="stepcirc">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <div
+    class="stepautoc"
+    [ngClass]="path === '/universal-service/account-creation' ? 'on' : ''"
+    style="width: 105px !important;"
+  >
+    Crear<br />
+    Cuenta / Suscriptor
+
+    <div class="stepcirc">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <!--  <div class="stepautoc" [ngClass]="path === '/universal-service/aceptation-terms' ? 'on' : ''">-->
+  <!--    Aceptación de Términos-->
+  <!---->
+  <!--    <div class="stepcirc">-->
+  <!--      <div class="circ-in"></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <!--  <div class="stepautoc" [ngClass]="path === '/universal-service/preview-view-and-firm' ? 'on' : ''">-->
+  <!--    Vista Previa y Firma-->
+
+  <!--    <div class="stepcirc">-->
+  <!--      <div class="circ-in"></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <div class="stepautoc last" [ngClass]="path === '/universal-service/activation' ? 'on' : ''">
+    Activación<br /><br />
+
+    <div class="stepcirc">
+      <div class="circ-in"></div>
+    </div>
+  </div>
+
+  <div class="stepsline"></div>
+</div>

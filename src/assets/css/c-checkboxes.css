@@ -1,0 +1,31 @@
+input[type=radio].css-radio {
+							position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+						}
+
+						input[type=radio].css-radio + label.css-label3, input[type=radio].css-radio + label.css-label3.clr {
+							padding-left:23px;
+							height:22px; 
+							display:inline-block;
+							line-height:50px;
+							background-repeat:no-repeat;
+							background-position: 0 0;
+							font-size:50px;
+							vertical-align:middle;
+							cursor:pointer;
+						}
+
+						input[type=radio].css-radio:checked + label.css-label3, input[type=radio].css-radio + label.css-label3.chk {
+							background-position: 0 -20px;
+						}
+
+						label.css-label3 {
+			background-image:url(../images/radios.png);
+			background-size: 90% auto;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			margin-bottom: 23px;
+			}

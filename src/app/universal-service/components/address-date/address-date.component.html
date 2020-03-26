@@ -1,0 +1,905 @@
+<!-- [INIT LOADING DATOS DE DIRECCION 1] -->
+
+<div class="popupbg" *ngIf="nvLoader">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="    margin-top: 15px !important;">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia Proceso de
+            Validaci&oacute;n de Elegibilidad en NV
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="validationProcessUSPS">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="    margin-top: 15px !important;">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia Proceso de
+            Validaci&oacute;n USPS
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS DE DIRECCION 1] -->
+
+<!-- [INIT POPUP VERIFICACION DE DIRECCION] -->
+
+<div class="popupbg" *ngIf="validationDataAddressInput">
+  <div class="popupcont">
+    <div class="basicrow f-black f-lbig roboto-m">Verificaci&oacute;n de Direcci&oacute;n</div>
+
+    <div class="basicrow f-reg f-black roboto-r">
+      <div class="basicrow">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="basicrow roboto-b m-top-i">
+              Direcci&oacute;n {{ model.temporalAddress ? 'Rural' : 'Física' }} Ingresada:
+            </div>
+
+            <div class="optchoice on roboto-r text-left" *ngIf="!model.temporalAddress || model.postalAddressFlag">
+              <!--              <div class="basicrow f-reg roboto-b">-->
+              <!--                {{ model.infisicalAddress }} <br />-->
+              <!--                {{ model.infisicalUrban }} <br />-->
+              <!--                {{-->
+              <!--                  convertAcents(model.infisicalMunicipality) +-->
+              <!--                    ' ' +-->
+              <!--                    model.infisicalState +-->
+              <!--                    ' ' +-->
+              <!--                    model.infisicalPostalCode-->
+              <!--                }}-->
+              <!--              </div>-->
+              <div class="basicrow f-reg roboto-b">
+                {{ model.address }}<br />
+                {{ model.depUnitOther }}<br />
+                {{ convertAcents(model.municipality) }} PR {{ model.postalCode }}
+              </div>
+            </div>
+
+            <!--CASO 4-->
+            <div class="optchoice on roboto-r text-left" *ngIf="model.temporalAddress && !model.postalAddressFlag">
+              <div class="basicrow f-reg roboto-b">
+                {{ model.temporalAddressExtraContent }} <br />
+                {{ model.address + ' ' + model.depUnitOther }} <br />
+                {{ convertAcents(model.municipality) }} PR {{ model.postalCode }}
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+            style="display: none;"
+            *ngIf="!model.temporalAddress || model.postalAddressFlag"
+          >
+            <div class="basicrow roboto-b m-top-i" style="margin-top: 50px;"></div>
+
+            <div class="optchoice roboto-r text-left">
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress">
+                {{ model.address }}<br />
+                {{ model.depUnitOther }}<br />
+                {{ convertAcents(model.municipality) }} PR {{ model.postalCode }}
+              </div>
+              <!--              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress">-->
+              <!--                {{ model.fisicalAddress }} <br />-->
+              <!--                {{ model.fisicalDepUnitOther }} <br />-->
+              <!--                {{ convertAcents(model.fisicalMunicipality) }} PR {{ model.fisicalPostalCode }}-->
+              <!--              </div>-->
+
+              <!-- CASO 4 -->
+              <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress">
+                {{ model.temporalAddressExtraContent }} <br />
+                {{ model.address + ' ' + model.depUnitOther }} <br />
+                {{ convertAcents(model.municipality) }} PR {{ model.postalCode }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="basicrow m-top">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Ingresada:</div>
+
+            <div class="optchoice roboto-r text-left">
+              <!-- <div class="checkdef"> -->
+              <!-- &lt;!&ndash; -->
+              <!--
+                <input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>
+              -->
+              <!-- &ndash;&gt; -->
+              <!-- <input -->
+              <!-- type="radio" -->
+              <!-- name="addressSelected" -->
+              <!-- id="radioG2" -->
+              <!-- class="css-radio" -->
+              <!-- disabled -->
+              <!-- [value]="'postal'" -->
+              <!-- [(ngModel)]="model.addressSelected" -->
+              <!-- [formControl]="form.controls['addressSelected']" -->
+              <!-- /><label for="radioG2" class="css-label3 radGroup1"></label> -->
+              <!-- </div> -->
+
+              <!-- <div class="basicrow f-reg roboto-b"> -->
+              <!-- {{ model.postalAddress }}<br /> -->
+              <!-- {{ model.postalDepUnitOther }}<br /> -->
+              <!-- {{ model.postalMunicipality }} PR {{ model.postalCode2 }} -->
+              <!-- </div> -->
+
+              <!-- DIRECCIONES POSTALES -->
+
+              <!-- CASO 1 -->
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && model.postalAddressFlag">
+                {{ model.address }}<br />
+                {{ model.depUnitOther }}<br />
+                {{ convertAcents(model.municipality) }} PR {{ model.postalCode }}
+              </div>
+
+              <!-- CASO 2 -->
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && !model.postalAddressFlag">
+                {{ model.postalAddress }}<br />
+                {{ model.postalDepUnitOther }}<br />
+                {{ convertAcents(model.postalMunicipality) }} PR {{ model.postalCode2 }}
+              </div>
+
+              <!-- CASO 4 -->
+              <!--              <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress && !model.postalAddressFlag">-->
+              <!--                {{ model.suggestedAddress }}<br />-->
+              <!--                {{ model.suggestedDepUnitOther }}<br />-->
+              <!--                {{ model.suggestedMunicipality }} PR {{ model.suggestedPostalCode }}-->
+              <!--              </div>-->
+
+              <!-- CASO 4 -->
+              <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress && !model.postalAddressFlag">
+                {{ model.postalAddress }}<br />
+                {{ model.postalDepUnitOther }}<br />
+                {{ convertAcents(model.postalMunicipality) }} PR {{ model.postalCode2 }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="suggestedAddressValidation.SUGGESTADDRESS !== ''">
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Sugerida:</div>
+
+            <div class="optchoice roboto-r text-left on">
+              <!-- CASO 2 -->
+              <div class="basicrow f-reg roboto-b">
+                {{ suggestedAddressValidation.SUGGESTADDRESS }}
+              </div>
+
+              <!--              <div class="basicrow f-reg roboto-b" *ngIf="suggestedAddressValidation.SUGGESTADDRESS === ''">-->
+              <!--                {{ model.suggestedAddress }}<br />-->
+              <!--                {{ model.suggestedDepUnitOther }}<br />-->
+              <!--                {{ convertAcents(model.suggestedMunicipality) }} PR {{ model.suggestedPostalCode }}-->
+              <!--              </div>-->
+
+              <!--              <div class="basicrow f-reg roboto-b" *ngIf="suggestedAddressValidation.SUGGESTADDRESS !== ''">-->
+              <!--                {{ suggestedAddressValidation.SUGGESTADDRESS }}-->
+              <!--              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="basicrow">
+        <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+        <!--        <div class="pull-left text-center m-top-i">-->
+        <!--          <a (click)="goToHome()" class="btns def-i red centr vcenter">-->
+        <!--            <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar </span>-->
+        <!--          </a>-->
+        <!--        </div>-->
+
+        <div class="pull-right text-center m-top-i">
+          <a (click)="goToRegisterCase()" class="btns def-i red centr vcenter">
+            <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END POPUP VERIFICACION DE DIRECCION] -->
+
+<!-- [INIT LOADING DATOS DE DIRECCION 2] -->
+
+<div class="popupbg" *ngIf="validationProcessMAILPREP">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el Proceso de
+            Validaci&oacute;n MAILPREP
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS DE DIRECCION 2] -->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validación de Dirección
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div *ngIf="!someErrorValidation" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Direcci&oacute;n F&iacute;sica</div>
+
+              <div class="row" style="display: none;">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="basicrow m-top">
+                    <label class="label-f">&#42; &#191;Es una direcci&oacute;n temporal&#63;</label>
+
+                    <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress1"
+                          [value]="true"
+                          [(ngModel)]="model.temporalAddress1"
+                          [formControl]="form.controls['temporalAddress1']"
+                        />
+                        Si
+                      </div>
+
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress1"
+                          [value]="false"
+                          [(ngModel)]="model.temporalAddress1"
+                          [formControl]="form.controls['temporalAddress1']"
+                        />
+                        No
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="basicrow m-top">
+                    <label class="label-f">&#42; &#191;Es una direcci&oacute;n rural&#63;</label>
+
+                    <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress"
+                          [value]="true"
+                          [(ngModel)]="model.temporalAddress"
+                          [formControl]="form.controls['temporalAddress']"
+                        />
+                        Si
+                      </div>
+
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress"
+                          [value]="false"
+                          [(ngModel)]="model.temporalAddress"
+                          [formControl]="form.controls['temporalAddress']"
+                        />
+                        No
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row"> -->
+
+              <!-- <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> -->
+              <!-- <div class="basicrow m-top-i" *ngIf="model.temporalAddress"> -->
+              <!-- <div class="basicrow rel"> -->
+              <!-- <input -->
+              <!-- [(ngModel)]="model.temporalAddressExtraContent" -->
+              <!-- type="text" -->
+              <!-- maxlength="40" -->
+              <!-- placeholder="Carretera, Kilómetro o Hectómetro" -->
+              <!-- class="inp-f qt" -->
+              <!-- /> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+
+              <div class="basicrow">
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n de tu casa&#63;</label>
+
+                        <div class="basicrow rel" *ngIf="model.temporalAddress">
+                          <input
+                            [(ngModel)]="model.temporalAddressExtraContent"
+                            type="text"
+                            maxlength="40"
+                            placeholder="Carretera, Kilómetro o Hectómetro"
+                            class="inp-f qt"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                      <div class="basicrow m-top-ii">
+                        <div class="basicrow rel">
+                          <img
+                            data-toggle="popover"
+                            data-html="true"
+                            data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            data-placement="bottom"
+                            width="100%"
+                            class="q-t"
+                            src="../../../../assets/images/tooltip1.png"
+                          />
+
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="N&uacute;mero, Nombre de Calle y Apt/Unidad/Otro"
+                            class="inp-f qt"
+                            [(ngModel)]="model.address"
+                            [formControl]="form.controls['address']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                      <div class="basicrow m-top-ii">
+                        <div class="basicrow">
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="Urban"
+                            class="inp-f"
+                            [(ngModel)]="model.depUnitOther"
+                            [formControl]="form.controls['depUnitOther']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; Municipio</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="municipality"
+                            [(ngModel)]="model.municipality"
+                            [formControl]="form.controls['municipality']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="municipality" *ngFor="let municipality of municipalities">{{
+                              municipality
+                            }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <div class="basicrow">
+                          <label class="label-f">&#42; Estado</label>
+
+                          <select
+                            class="sel-f"
+                            name="estate"
+                            [(ngModel)]="model.estate"
+                            [formControl]="form.controls['estate']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="estate" *ngFor="let estate of estates">{{ estate }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <div class="basicrow">
+                          <label type="text" maxlength="5" class="label-f">&#42; C&oacute;digo Postal</label>
+
+                          <input
+                            type="text"
+                            maxlength="5"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.postalCode"
+                            [formControl]="form.controls['postalCode']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; N&uacute;mero de Contacto 1</label>
+
+                        <input
+                          (keypress)="checkNumbersOnly($event)"
+                          (keyup)="formatInputContactNumber('contactNumber1')"
+                          (blur)="blurContactNumber1()"
+                          maxlength="12"
+                          class="inp-f "
+                          name="contactNumber1"
+                          [(ngModel)]="model.contactNumber1"
+                          [formControl]="form.controls['contactNumber1']"
+                        />
+                        <small [hidden]="form.controls['contactNumber1'].value !== ''" class="text-danger">
+                          El número de teléfono debe empezar por 787 o 939
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; N&uacute;mero de Contacto 2</label>
+
+                        <div class="basicrow rel">
+                          <input
+                            (keypress)="checkNumbersOnly($event)"
+                            (keyup)="formatInputContactNumber('contactNumber2')"
+                            (blur)="blurContactNumber2()"
+                            maxlength="12"
+                            class="inp-f "
+                            name="contactNumber2"
+                            [(ngModel)]="model.contactNumber2"
+                            [formControl]="form.controls['contactNumber2']"
+                          />
+                          <small [hidden]="form.controls['contactNumber2'].value !== ''" class="text-danger">
+                            El número de teléfono debe empezar por 787 o 939
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Correo Electr&oacute;nico</label>
+
+                <div class="basicrow">
+                  <input
+                    type="text"
+                    maxlength="40"
+                    class="inp-f"
+                    [(ngModel)]="model.email"
+                    [formControl]="form.controls['email']"
+                  />
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; &#191;Cu&aacute;l es la mejor manera de contactarte&#63;</label>
+
+                <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                  <div class="popopt">
+                    <input type="checkbox" name="contactChannel" [value]="'1'" [(ngModel)]="contactChannelEmail" />
+                    Correo Electr&oacute;nico
+                  </div>
+
+                  <div class="popopt">
+                    <input type="checkbox" name="contactChannel" [value]="'2'" [(ngModel)]="contactChannelPhone" />
+                    Tel&eacute;fono
+                  </div>
+
+                  <div class="popopt">
+                    <input
+                      type="checkbox"
+                      name="contactChannel"
+                      [value]="'3'"
+                      [(ngModel)]="contactChannelTextMessage"
+                    />
+                    Mensaje de texto
+                  </div>
+
+                  <div class="popopt">
+                    <input type="checkbox" name="contactChannel" [value]="'4'" [(ngModel)]="contactChannelMail" />
+                    Correo
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f"
+                  >&#42; &#191;La direcci&oacute;n ingresada es la misma a su direcci&oacute;n Postal&#63;</label
+                >
+
+                <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                  <div class="popopt">
+                    <input
+                      type="radio"
+                      name="postalAddressFlag"
+                      [value]="true"
+                      [(ngModel)]="model.postalAddressFlag"
+                      [formControl]="form.controls['postalAddressFlag']"
+                    />
+                    Si
+                  </div>
+
+                  <div class="popopt">
+                    <input
+                      type="radio"
+                      name="postalAddressFlag"
+                      [value]="false"
+                      [(ngModel)]="model.postalAddressFlag"
+                      [formControl]="form.controls['postalAddressFlag']"
+                    />
+                    No
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow" *ngIf="!model.postalAddressFlag && model.postalAddressFlag !== undefined">
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n postal&#63;</label>
+
+                        <div class="basicrow rel">
+                          <img
+                            data-toggle="popover"
+                            data-html="true"
+                            data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            data-placement="bottom"
+                            width="100%"
+                            class="q-t"
+                            src="../../../../assets/images/tooltip1.png"
+                          />
+
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="N&uacute;mero, Nombre de Calle y Apt/Unidad/Otro"
+                            class="inp-f qt"
+                            [(ngModel)]="model.postalAddress"
+                            [formControl]="form.controls['postalAddress']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                      <div class="basicrow m-top-iii">
+                        <div class="basicrow">
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="Urban"
+                            class="inp-f"
+                            [(ngModel)]="model.postalDepUnitOther"
+                            [formControl]="form.controls['postalDepUnitOther']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="basicrow">
+                  <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; Municipio</label>
+
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="postalMunicipality"
+                            [(ngModel)]="model.postalMunicipality"
+                            [formControl]="form.controls['postalMunicipality']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="postalMunicipality" *ngFor="let postalMunicipality of municipalities">{{
+                              postalMunicipality
+                            }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <div class="basicrow">
+                          <label class="label-f">&#42; Estado</label>
+
+                          <select
+                            class="sel-f"
+                            name="postalEstate"
+                            [(ngModel)]="model.postalEstate"
+                            [formControl]="form.controls['postalEstate']"
+                          >
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="postalEstate" *ngFor="let postalEstate of estates">{{
+                              postalEstate
+                            }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="basicrow m-top-i">
+                        <div class="basicrow">
+                          <label class="label-f">&#42; C&oacute;digo Postal</label>
+
+                          <input
+                            type="text"
+                            maxlength="5"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.postalCode2"
+                            [formControl]="form.controls['postalCode2']"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <!-- <div class="basicrow"> -->
+                <!-- <div class="row"> -->
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top-i"> -->
+                <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 1</label> -->
+
+                <!-- <input class="inp-f "> -->
+                <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top-i"> -->
+                <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 2</label> -->
+
+                <!-- <div class="basicrow rel"> -->
+                <!-- <input class="inp-f "> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-u">
+                  <div class="optchoice roboto-r text-left">
+                    <div class="checkdef">
+                      <input
+                        type="checkbox"
+                        name="radioG1"
+                        id="radioG1"
+                        class="css-radio"
+                        [(ngModel)]="model.clientOK"
+                      /><label for="radioG1" class="css-label3 radGroup1"></label>
+                    </div>
+
+                    <div class="basicrow f-med roboto">
+                      Marca esta casilla si el cliente otorga concentimiento de aplicación de solicitud.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToValidationDataAddressInput()"
+                    class="btns def-i red pull-right vcenter gray"
+                    [ngClass]="{
+                      red:
+                        form.valid &&
+                        ((model.temporalAddress && model.temporalAddressExtraContent.length > 0) ||
+                          !model.temporalAddress) &&
+                        validatePostalAddress() &&
+                        validateContactChannel() &&
+                        ((!model.temporalAddress && model.address.length > 0 && model.contactNumber1.length === 12) ||
+                          model.temporalAddress) &&
+                        validateContactNumber2() && (model.clientOK)
+                    }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+
+                  <!--<a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+                      <span class="tabcell">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar
+                      </span>
+                   </a>--->
+
+                  <!-- Nota para flujo que se quiere implementar al regresar -->
+
+                  <!--
+                  En espera de confirmacion de jhonny
+                  Hay que hacer una ecepcion ya que cuando
+                  se llega a dar el caso que quiera regrezar al paso
+                  previo ya se van a encontrar registrados los datos.
+                  y al invocar el servicio va a decir que caso ya existe registrado con ese mismo
+                  SSN
+
+                  <a (click)="goToPersonalDates()" class="btns def-i red pull-left vcenter">
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
+                  </a>
+                --></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="someErrorValidation" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                El sistema ha detectado que no cumpli&oacute; con la validaci&oacute;n de direcci&oacute;n postal. Su
+                caso fue eliminado.
+              </div>
+
+              <div class="userinfo full">
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ validateSSNData.CASENUMBER }}</div>
+                </div>
+
+                <br />
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Dirección</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.inaddr }}</div>
+                </div>
+
+                <br />
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Ciudad</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.incity }}</div>
+                </div>
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Estado</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.instate }}</div>
+                </div>
+                <div *ngIf="dataReject.inurban !== ''" class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Urban</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.inurban }}</div>
+                </div>
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">C&oacute;digo Postal</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.zip }}</div>
+                </div>
+                <!--
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">City</div>
+
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">SSN</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.dataObject[0].ssn }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.data[0].ssn }}
+                    </div>
+                  </div>
+
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.dataObject[0].phone1 }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.data[0].subscriberNumber }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="basicrow roboto-r">Direcci&oacute;n actual del servicio</div>
+
+                    <div *ngIf="!validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                      {{ validateSSNData.dataObject[0].address }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                      {{ validateSSNData.data[0].address }}
+                    </div>
+                  </div>
+                -->
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div
+                  class="basicrow text-center m-top-i"
+                  style="float: left; position: relative; padding-right: 230px; padding-left: 230px; width:600px"
+                >
+                  <a
+                    (click)="goTo('/home')"
+                    class="btns red vcenter"
+                    data-old-class="btns def-i red pull-right vcenter"
+                    style="width: 153px; height:37;margin-left: 150 px"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

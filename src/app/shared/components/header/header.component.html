@@ -1,0 +1,61 @@
+<div class="basicrow">
+  <div class="htopbar">
+    <div class="container vcenter">
+      <div class="tabcell">
+        <div class="autorow pull-left">
+          <div class="autorow pull-left">
+            <a>Personas</a> <a class="on m-sides" href="#">Gesti&oacute;n de Servicio Universal Lifeline</a>
+          </div>
+        </div>
+
+        <div class="autorow pull-left t-blline" *ngIf="validateSession()">
+          <div class="autorow pull-left">
+            <!--<span class="roboto-b">Comp Id:</span> {{ dealerCode }}-CTI-Cellulars -  --->
+            <span class="roboto-b">Comp Id:</span> 00001-CTI-Cellulars -
+            <span class="roboto-b">Localidad:</span> REG-General - <span class="roboto-b">Usuario:</span> {{ roleName }}
+          </div>
+        </div>
+
+        <div class="autorow pull-right">
+          <div class="autorow pull-left">
+            <img class="bandera" width="100%" src="../../assets/images/bandera.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menubar">
+    <div class="container">
+      <div class="basicrow text-center">
+        <div class="mc-logo centr" *ngIf="!validateSession()">
+          <span class="autocont vcenter">
+            <span class="tabcell"> <img width="100%" src="../../assets/images/claro-logo.png" /> </span>
+          </span>
+        </div>
+
+        <div *ngIf="validateSession()">
+          <a (click)="goTo('/home')" class="mc-logo">
+            <span class="autocont vcenter">
+              <span class="tabcell"> <img width="100%" src="../../assets/images/claro-logo.png" /> </span>
+            </span>
+          </a>
+
+          <a (click)="goTo('/login')" class="lifemenulink vcenter">
+            <span class="tabcell"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesi&oacute;n </span>
+          </a>
+
+          <a class="lifemenulink vcenter">
+            <span class="tabcell"> <i class="fa fa-user" aria-hidden="true"></i> {{ username }} </span>
+          </a>
+          <a class="lifemenulink vcenter" *ngIf="directedSell">
+            <span class="tabcell"> Ventas Directas </span>
+          </a>
+          <a class="lifemenulink vcenter" *ngIf="!directedSell">
+            <span class="tabcell"> Ventas Indirectas </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

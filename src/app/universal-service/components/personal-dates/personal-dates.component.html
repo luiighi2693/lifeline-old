@@ -1,0 +1,528 @@
+<!-- [INIT LOADING DATOS PERSONALES] -->
+<div class="popupbg" *ngIf="processValidationSIF">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif"/>
+    </div>
+
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i">
+            <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia el proceso de validaci&oacute;n CIDS
+          </div>
+
+          <!--          <div class="basicrow m-top">-->
+          <!--            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el proceso de-->
+          <!--            validaci&oacute;n SIF-->
+          <!--          </div>-->
+
+          <!--          <div class="basicrow m-top-i">-->
+          <!--            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el proceso de-->
+          <!--            validaci&oacute;n CIDS-->
+          <!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS PERSONALES] -->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center">
+          <app-steplife></app-steplife>
+        </div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Datos Personales del Cliente</div>
+
+              <div class="basicrow m-top">
+                <label class="label-f">&#42; Sufijo</label>
+
+                <div class="basicrow" [formGroup]="form">
+                  <select class="sel-f sufix" [(ngModel)]="sufix" name="sufix" formControlName="sufix">
+                    <option [value]="''" disabled selected hidden>Seleccionar</option>
+                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{ sufix }}</option>
+                  </select>
+                  <small
+                    [hidden]="form.controls['sufix'].valid || form.controls['sufix'].untouched"
+                    class="text-danger"
+                  >
+                    Campo Requerido
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Nombre</label>
+
+                <div class="basicrow" [formGroup]="form">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    formControlName="firstName"
+                    [(ngModel)]="firstName"
+                  />
+                  <small
+                    [hidden]="form.controls['firstName'].valid || form.controls['firstName'].untouched"
+                    class="text-danger"
+                  >
+                    Campo Requerido
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">Segundo Nombre (Opcional)</label>
+
+                <div class="basicrow" [formGroup]="form">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="18"
+                    class="inp-f"
+                    formControlName="secondName"
+                    [(ngModel)]="secondName"
+                  />
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Apellido</label>
+
+                <div class="basicrow" [formGroup]="form">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    formControlName="lastName"
+                    [(ngModel)]="lastName"
+                  />
+                  <small
+                    [hidden]="form.controls['lastName'].valid || form.controls['lastName'].untouched"
+                    class="text-danger"
+                  >
+                    Campo Requerido
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <!-- [RESULTADO POSITIVO] -->
+
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; Seguro Social</label>
+
+                      <div class="basicrow rel" [formGroup]="form">
+                        <div *ngIf="checkSSN" class="social-oc valid"></div>
+                        <div *ngIf="!checkSSN" class="social-oc wrong"></div>
+
+                        <img
+                          data-toggle="popover"
+                          data-html="true"
+                          data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                          data-placement="bottom"
+                          width="100%"
+                          class="q-t"
+                          src="../../../../assets/images/tooltip1.png"
+                        />
+
+                        <input
+                          type="text"
+                          (keypress)="checkNumbersOnly($event)"
+                          (keyup)="setFormatInputSSN()"
+                          maxlength="11"
+                          name="socialSecure"
+                          formControlName="socialSecure"
+                          (focus)="onFocusSSN()"
+                          (blur)="onBlurSSN()"
+                          class="inp-f qt"
+                          [(ngModel)]="socialSecure"
+                        />
+                        <small
+                          [hidden]="form.controls['socialSecure'].valid || form.controls['socialSecure'].untouched"
+                          class="text-danger"
+                        >
+                          Campo Requerido
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; Fecha de Nacimiento</label>
+
+                      <div class="basicrow rel">
+                        <i
+                          id="activadorFNinputControl"
+                          class="fa fa-calendar inpcal-icon"
+                          aria-hidden="true"
+                          (click)="activarDatepickerFechaN()"
+                          style="margin-top: 10px;"
+                        ></i>
+
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          id="inputControl"
+                          [(ngModel)]="inputControl"
+                          [formControl]="form.controls['birthday']"
+                          (blur)="ic_blur()"
+                          (click)="activarDatepickerFechaN()"
+                          (keyup)="ic_key_up()"
+                        />
+                        <small
+                          [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
+                          class="text-danger"
+                        >
+                          Campo Requerido
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">&#42; Género</label>
+
+                <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                  <div class="popopt" [formGroup]="form">
+                    <input type="radio" name="gender" [(ngModel)]="gender" [value]="true" formControlName="gender"/>
+                    Femenino
+                  </div>
+
+                  <div class="popopt" [formGroup]="form">
+                    <input type="radio" name="gender" [(ngModel)]="gender" [value]="false" formControlName="gender"/>
+                    Masculino
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i" [formGroup]="form" [formGroup]="form">
+                      <label class="label-f">&#42; ID</label>
+                      <select class="sel-f" name="idType" [(ngModel)]="idType" formControlName="idType">
+                        <option [value]="''" disabled selected hidden>Seleccionar</option>
+                        <option [value]="idType" *ngFor="let idType of idTypes">{{ idType }}</option>
+                      </select>
+                      <small
+                        [hidden]="form.controls['idType'].valid || form.controls['idType'].untouched"
+                        class="text-danger"
+                      >
+                        Campo Requerido
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; Nro de ID</label>
+
+                      <div class="basicrow rel" [formGroup]="form">
+                        <input
+                          type="text"
+                          maxlength="25"
+                          class="inp-f"
+                          (keypress)="checkNumbersOnly($event)"
+                          formControlName="idNumber"
+                          [(ngModel)]="idNumber"
+                        />
+                        <small
+                          [hidden]="form.controls['idNumber'].valid || form.controls['idNumber'].untouched"
+                          class="text-danger"
+                        >
+                          Campo Requerido
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="basicrow m-top-i">
+                      <label class="label-f">&#42; Fecha de Expiraci&oacute;n del ID</label>
+
+                      <div class="basicrow rel">
+                        <i
+                          id="activadorFEinputControl"
+                          class="fa fa-calendar inpcal-icon"
+                          aria-hidden="true"
+                          (click)="activarDatepickerFechaE()"
+                          style="margin-top: 10px;"
+                        ></i>
+
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          id="inputControl2"
+                          [(ngModel)]="inputControl2"
+                          [formControl]="form.controls['idExpirationDate']"
+                          #ic_fecha2
+                          (blur)="ic_blur2()"
+                          (click)="activarDatepickerFechaE()"
+                          (keyup)="ic_key_up2()"
+                        />
+                        <small
+                          [hidden]="
+                            form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched
+                          "
+                          class="text-danger"
+                        >
+                          Campo Requerido
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12" *ngIf="dataAgency">
+                    <div class="basicrow m-top-i">
+
+                      <label class="label-f">&#42; Listado de Agencias</label>
+                      <div class="basicrow rel">
+                        <ul class="nav-1" style="list-style: none;">
+                          <li>
+                            <ul style="list-style: none;">
+
+                              <li name="agency" *ngFor="let agency of checkListAgency">
+                                <a style="padding: 0 !important;">
+                                  <input type="checkbox"
+                                  (click)="setCheck(agency.cod_id)"
+                                  id="agency.cod_id"
+                                  [value]="agency.cod_id"
+                                  [checked] = agency.checked
+                                  >&nbsp; <label>{{ agency.AGENT_DESCRIPCION }}</label>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                        <!--<select multiple name="agency" formControlName="agency">
+                          <option [value]="''" disabled selected hidden>Seleccionar</option>
+                          <option [value]="agency.cod_id" *ngFor="let agency of dataAgency">{{ agency.AGENT_DESCRIPCION }}</option>
+                        </select>
+                        <small
+                          [hidden]="form.controls['agency'].valid || form.controls['agency'].untouched"
+                          class="text-danger"
+                        >
+                          Campo Requerido
+                        </small>--->
+
+                        <!--                        <ss-multiselect-dropdown-->
+                        <!--                         style="width: 100 !important;"-->
+                        <!--                         [options]="myOptions" -->
+                        <!--                         [(ngModel)]="optionsModel"-->
+                        <!--                         (ngModelChange)="onChangeOpt()"-->
+                        <!--                         [texts]="myTexts"-->
+                        <!--                         [settings]="mySettings"-->
+                        <!--                        ></ss-multiselect-dropdown>-->
+                      </div>
+
+                    </div>
+                      <div class="basicrow">
+                        <div class="row">
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="basicrow m-top-i">
+                              <label class="label-f">&#42; ¿Realizará una Elebilidad Asistida?</label>
+
+                              <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                                <div class="popopt" [formGroup]="form">
+                                  <input type="radio" name="asistence" [(ngModel)]="asistence" [value]="true" checked formControlName="asistence"/>
+                                  Si
+                                </div>
+
+                                <div class="popopt" [formGroup]="form">
+                                  <input type="radio" name="asistence" [value]="false" [(ngModel)]="asistence"
+                                         formControlName="asistence"/>
+                                  No
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="basicrow m-top-i" *ngIf="asistence">
+                              <label class="label-f">&#42; Nro de ID de Representante</label>
+
+                              <div class="basicrow rel">
+                                <input
+                                  type="text"
+                                  class="inp-f qt"
+                                  [(ngModel)]="repID"
+                                  maxlength="9"
+                                />
+                                <!--<small
+                                  [hidden]="form.controls['repID'].valid || form.controls['repID'].untouched"
+                                  class="text-danger"
+                                >
+                                  Campo Requerido
+                                </small>--->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="basicrow m-top-u">
+                        <div class="optchoice roboto-r text-left">
+                          <div class="checkdef" [formGroup]="form">
+                            <input
+                              type="checkbox"
+                              name="radioG1"
+                              id="radioG1"
+                              class="css-radio"
+                              [formControl]="dependPeopleFlag"
+                            /><label for="radioG1" class="css-label3 radGroup1"></label>
+                          </div>
+
+                          <div class="basicrow f-med roboto-b">
+                            Marca esta casilla si estas calificando a través de tu hijo o un dependiente en tu hogar.
+                          </div>
+                        </div>
+                      </div>
+
+
+                    <div class="basicrow m-top-i" style="display: none;">
+                      <label class="label-f">&#42; &#191;Vives con otro Adulto&#63;</label>
+
+                      <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="liveWithAnoterAdult"
+                            [value]="true"
+                            formControlName="liveWithAnoterAdult"
+                          />
+                          Si
+                        </div>
+
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="liveWithAnoterAdult"
+                            [value]="false"
+                            formControlName="liveWithAnoterAdult"
+                          />
+                          No
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="basicrow m-top-i" *ngIf="form.get('liveWithAnoterAdult').value">
+                      <label class="label-f">&#42; &#191;&Eacute;l o Ella tiene Lifeline&#63;</label>
+
+                      <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="hasLifelineTheAdult"
+                            [value]="true"
+                            formControlName="hasLifelineTheAdult"
+                          />
+                          Si
+                        </div>
+
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="hasLifelineTheAdult"
+                            [value]="false"
+                            formControlName="hasLifelineTheAdult"
+                          />
+                          No
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="basicrow m-top-i"
+                      *ngIf="form.get('liveWithAnoterAdult').value && form.get('hasLifelineTheAdult').value"
+                    >
+                      <label class="label-f"
+                      >&#42; &#191;Compartes dinero (ingresos y gastos) con ella o &eacute;l&#63;</label
+                      >
+
+                      <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="sharedMoneyWithTheAdult"
+                            [value]="true"
+                            formControlName="sharedMoneyWithTheAdult"
+                          />
+                          Si
+                        </div>
+
+                        <div class="popopt" [formGroup]="form">
+                          <input
+                            type="radio"
+                            name="sharedMoneyWithTheAdult"
+                            [value]="false"
+                            formControlName="sharedMoneyWithTheAdult"
+                          />
+                          No
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="noqualifycont m-top-i" *ngIf="form.get('sharedMoneyWithTheAdult').value">
+                      No calificas para Lifeline porque alguien en tu hogar ya recibe el beneficio. S&oacute;lo se
+                      permite un
+                      beneficio de Lifeline por hogar, no por persona.
+                    </div>
+
+                    <div class="basicrow">
+                      <div class="basicrow m-top-i">
+                        <div class="logline full"></div>
+                      </div>
+
+                      <div class="basicrow text-center m-top-i">
+                        <a
+                          (click)="goToSocialSecureVerification()"
+                          class="btns def-i pull-right vcenter gray"
+                          [ngClass]="{ red: validateForm() }"
+                        >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                        </a>
+
+                        <!--                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">-->
+                        <!--                    <span class="tabcell">-->
+                        <!--                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar-->
+                        <!--                    </span>-->
+                        <!--                  </a>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

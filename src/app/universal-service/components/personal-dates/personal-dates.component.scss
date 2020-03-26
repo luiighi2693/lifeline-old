@@ -1,0 +1,30 @@
+.my{
+    width: 100% !important;
+    background-color: green($color: #fff);
+    color: black !important;
+}
+ .nav-1{
+     padding: 0px;
+     margin: 0px;
+ }
+
+.nav-1 li a{
+    padding: 10px;
+    text-decoration: none;
+    display:block;
+    color: black;
+    margin-left: -20 px !important;
+    margin-top: 6px;
+
+}
+.nav-1 li a:hover{
+   // background-color: rgb(220, 217, 217);
+
+}
+.nav-1 li ul{
+  //display: none;
+}
+.nav-1 li:hover > ul {
+    display: block;
+     
+  }

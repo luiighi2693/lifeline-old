@@ -1,0 +1,176 @@
+/*
+ * Entry point of global application style.
+ * Component-specific style should not go here and be included directly as part of the components.
+ */
+
+// Theme variables, must be included before the libraries to allow overriding defaults
+//@import "theme/theme-variables";
+
+// 3rd party libraries
+//@import "~bootstrap/scss/bootstrap";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+
+// Theme customization
+//@import "theme/theme";
+.oculta {
+  display: none !important;
+}
+.btns.red:hover {
+  background-color: #fe4b3c;
+}
+
+.ln-top {
+  border-top: 3px double rgba(65, 65, 65, 0.7);
+  padding-top: 7px;
+  margin-top: 7px;
+  padding: 2em;
+}
+.list-form-1 {
+  font-size: 0.83em;
+  list-style: none;
+}
+.list-form-1 li {
+  padding: 10px;
+  padding-bottom: 30px;
+}
+.container-firm {
+  width: 90% !important;
+  overflow: scroll;
+  overflow-x: hidden;
+  z-index: 5000;
+  /*top: 87%;*/
+  top: 50%;
+  height: 100vh;
+}
+.inputCustom {
+  background-color: #ffffff;
+  font-size: 12pt;
+  float: left;
+  border-top-color: #ffdd96;
+  border-top-style: solid;
+  border-top-width: 2.6pt;
+  text-align: center;
+  width: 50px;
+  margin-right: 25px;
+  text-transform: uppercase;
+}
+
+.inputCustom:active,
+.inputCustom:focus {
+  border-top-color: #ffc54b;
+
+  border-right-color: rgba(0, 0, 0, 0.2);
+  border-right-style: dashed;
+  border-right-width: 2pt;
+
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border-bottom-style: dashed;
+  border-bottom-width: 2pt;
+
+  border-left-color: rgba(0, 0, 0, 0.2);
+  border-left-style: dashed;
+  border-left-width: 2pt;
+}
+.inputCustom2 {
+  border-right-color: rgba(0, 0, 0, 0.2);
+  border-right-style: solid;
+  border-right-width: 2pt;
+
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border-bottom-style: solid;
+  border-bottom-width: 2pt;
+
+  border-left-color: rgba(0, 0, 0, 0.2);
+  border-left-style: solid;
+  border-left-width: 2pt;
+  min-height: 35px;
+}
+
+.txt-orange {
+  color: #ffc54b;
+  padding-top: 20px;
+  width: 100%;
+  display: block;
+  font-size: 1.3em;
+  font-weight: 100;
+}
+.lbl-iniciales {
+  float: left;
+  margin-left: -70px;
+  margin-top: 30px;
+  font-weight: 600;
+}
+.txt-silver {
+  display: inline-block;
+}
+.txt-silver.sub {
+  color: #818181;
+  padding: 0 1em;
+  font-size: 0.8em;
+  padding-top: 1em;
+  text-align: justify;
+  text-indent: 2em;
+}
+.list-form-1 li p {
+  font-size: 14px;
+}
+
+.inputCustom.red {
+  border-right-color: #ef3829;
+  border-bottom-color: #ef3829;
+  border-left-color: #ef3829;
+}
+.btns {
+  cursor: pointer;
+}
+
+/* check in last popup preview-view-and-firm */
+
+.checkbox-list__item {
+  position: relative;
+  padding: 10px 0;
+  display: block;
+  cursor: pointer;
+  margin: 0 0 0 34px;
+  border-bottom: 1px solid #b4bcc2;
+}
+.checkbox-list__item:last-of-type {
+  border-bottom: 0;
+}
+
+.checkbox-list__check {
+  width: 3em;
+  height: 3em;
+  border: 3px solid #b4bcc2;
+  position: absolute;
+  left: -77px;
+  top: 180%;
+  margin-top: -12px;
+  transition: border 0.3s ease;
+  border-radius: 5px;
+}
+.checkbox-list__check:before {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 110%;
+  top: -2px;
+  left: 0px;
+  padding-left: 0.3em;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  content: "\2713";
+  font-family: initial;
+  font-size: 22px;
+  color: white;
+}
+
+input[type="checkbox"]:checked ~ .checkbox-list__check {
+  border-color: #5bc0de;
+}
+input[type="checkbox"]:checked ~ .checkbox-list__check:before {
+  background-color: #5bc0de;
+}

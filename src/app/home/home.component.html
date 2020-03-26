@@ -1,0 +1,238 @@
+<div class="popupbg" *ngIf="processValidation">
+  <div class="popupcont morew" style="padding: 0 !important;">
+    <div class="basicrow">
+      <div class="basicrow">
+        <div class="termgbg">
+          <div style="display: flex;">
+            <div class="basicrow roboto-b f-reg">&#42; Cláusula sobre responsabilidad del usuario</div>
+            <div
+              class="basicrow pull-right"
+              style="text-align: end; cursor: pointer; width: auto;"
+              (click)="processValidation = false"
+            >
+              <img
+                class="bigclarogif"
+                src="../../../../assets/images/close-button.png"
+                style="width: 35px; height: 35px;"
+              />
+            </div>
+          </div>
+
+          <div class="termr-t m-top-ii" style="    font-size: 1.5rem;">
+            Si se determina que un ETC ha violado una regla aplicable de la Comisión, entonces puede estar sujeto a las
+            sanciones autorizadas por la Ley de Comunicaciones, incluidas, entre otras, multas monetarias sustanciales.
+            Cualquiera de estas cantidades sería adicional a la recuperación de los reembolsos de Lifeline identificados
+            obtenidos de manera fraudulenta. Además, dichos individuos pueden estar sujetos a sanciones adicionales por
+            parte de las entidades reguladoras estatales y el Departamento de Justicia de los E.U.
+          </div>
+
+          <div class="popopt" style="width: 100% !important; text-align: center; padding-top: 2%;">
+            <input type="checkbox" name="contactChannel" [value]="false" [(ngModel)]="checkTerms" />
+            Debe aceptar los T&eacute;rminos y Condiciones para continuar
+          </div>
+
+          <div class="basicrow m-top">
+            <a
+              class="btns termdef vcenter pull-right blue"
+              [ngClass]="{ blue: checkTerms, gray: !checkTerms }"
+              (click)="goToUniversalServiceV2()"
+            >
+              <span class="tabcell"> Aceptar T&eacute;rminos </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top" *ngIf="!someErrorValidation">
+    <div class="container">
+      <div class="basicrow">
+        <div class="row">
+          <div
+            class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2"
+          >
+            <div class="basicrow f-btitle">Lifeline</div>
+
+            <div class="basicrow">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="autowcont lifehomedef m-top">
+                    <div class="basicrow msidespad">
+                      <div class="b-title">
+                        <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                          <div class="tabcell">
+                            <img width="100%" class="lifehomeicons" src="../../assets/images/lifecrt-icon.png" />
+
+                            <div class="autorow pull-left m-top-u">Abrir un nuevo Caso</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="basicrow msidespad">
+                      <div class="basicrow f-black roboto-r f-reg m-top-u-i">Crear caso de activaci&oacute;n Servicio Universal.</div>
+
+                      <div class="basicrow m-top">
+                        <input
+                                type="text"
+                                maxlength="12"
+                                placeholder="Nro. de Aplicación"
+                                class="inp-f"
+                                [(ngModel)]="applicationId"
+                                (keyup)="setFormatInputAppId()"
+                        />
+                      </div>
+
+                      <a (click)="goToUniversalService()"  class="btns red vcenter m-top-i">
+                      <span class="tabcell">
+                        Empieza Aqu&iacute;&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="autowcont lifehomedef m-top">
+                    <div class="basicrow msidespad">
+                      <div class="b-title">
+                        <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                          <div class="tabcell">
+                            <img width="100%" class="lifehomeicons" src="../../assets/images/lifesrch-icon.png" />
+
+                            <div class="autorow pull-left m-top-u">Consultar Caso USF</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="basicrow msidespad">
+                      <div class="basicrow f-black roboto-r f-reg m-top-u-i">Consultar caso</div>
+
+                      <div class="basicrow m-top">
+                        <input
+                          type="text"
+                          maxlength="12"
+                          placeholder="Nro. de Caso / Nro. de Aplicación"
+                          class="inp-f"
+                          [(ngModel)]="numberCase"
+                          (keyup)="setFormatInputCase()"
+                        />
+                      </div>
+
+                      <a (click)="gotoUsfCase()" class="btns blue vcenter m-top-i">
+                        <span class="tabcell">
+                          Ingresa ahora&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="basicrow m-top" *ngIf="someErrorValidation">
+    <div class="container">
+      <div class="basicrow">
+        <div class="row">
+          <div class="basicrow text-center">
+            <div class="shortcont">
+              <div class="basicrow">
+                <div class="redbgbadmsg" style="text-align: center;">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                  El sistema ha detectado que no cumplió con la validación de National Verifier.
+                  <br />
+                  Su caso no pudo ser procesado de acuerdo al siguiente estatus.
+                </div>
+
+                <div class="userinfo full">
+                  <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">Error ID:</div>
+
+                    <div class="autorow roboto-b pull-right">{{ errorObject.errorId }}</div>
+                  </div>
+
+                  <br />
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">Application ID:</div>
+                    <div class="autorow roboto-b pull-right">{{ errorObject.applicationId }}</div>
+                  </div>
+
+                  <br />
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">Eligibility Check ID:</div>
+                  </div>
+                  <div class="m-top">
+                    <div class="roboto-b">{{ errorObject.eligibilityCheckId.toString().substr(0, 38) }}</div>
+                    <div class="roboto-b">
+                      {{
+                        errorObject.eligibilityCheckId
+                          .toString()
+                          .substr(39, errorObject.eligibilityCheckId.toString().length)
+                      }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">Status:</div>
+                    <div class="autorow roboto-b pull-right">{{ errorObject.status }}</div>
+                  </div>
+
+                  <br />
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">EligibilityExpiration Date:</div>
+                    <div class="autorow roboto-b pull-right">{{ errorObject.eligibilityExpirationDate }}</div>
+                  </div>
+                  <!--                <div class="redstat m-top">-->
+                  <!--                  <div class="autorow roboto-r pull-left">Estado</div>-->
+                  <!--                  <div class="autorow roboto-b pull-right">{{ dataReject.instate }}</div>-->
+                  <!--                </div>-->
+                  <!--                <div *ngIf="dataReject.inurban !== ''" class="redstat m-top">-->
+                  <!--                  <div class="autorow roboto-r pull-left">Urban</div>-->
+                  <!--                  <div class="autorow roboto-b pull-right">{{ dataReject.inurban }}</div>-->
+                  <!--                </div>-->
+                  <!--                <div class="redstat m-top">-->
+                  <!--                  <div class="autorow roboto-r pull-left">C&oacute;digo Postal</div>-->
+                  <!--                  <div class="autorow roboto-b pull-right">{{ dataReject.zip }}</div>-->
+                  <!--                </div>-->
+                </div>
+
+                <div class="basicrow">
+                  <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                  <div
+                    class="basicrow text-center m-top-i"
+                    style="float: left; position: relative; padding-right: 230px; padding-left: 230px; width:600px"
+                  >
+                    <a
+                      (click)="someErrorValidation = false"
+                      class="btns red vcenter"
+                      data-old-class="btns def-i red pull-right vcenter"
+                      style="width: 153px; height:37px ;margin-left: 150px"
+                    >
+                      <span class="tabcell">
+                        Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

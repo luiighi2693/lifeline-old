@@ -1,0 +1,534 @@
+<!-- [INIT LOADING documentos] -->
+<div class="popupbg" *ngIf="loadingDocs">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Cargando Documento
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING documentos] -->
+<!-- [INIT POPUP VISTA PREVIA 1] -->
+
+<div class="popupbg" *ngIf="previewView">
+  <div class="popupcont morew-i" style="width: 95%; height: 93%;">
+    <div class="basicrow previewcont">
+      <div class="basicrow f-black f-lbig roboto-m">Vista Previa</div>
+
+      <!-- <div class="basicrow f-reg f-black roboto-r m-top-u text-justify"> -->
+      <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. -->
+      <!-- </div> -->
+    </div>
+
+    <div class="popupbg" *ngIf="warningValidationCharge">
+      <div class="popupcont morew-i" style="width: 55%; height: 40%;">
+        <div class="basicrow previewcont">
+          <div class="basicrow text-center  f-black f-lbig roboto-m">
+            Por favor verifique que el documento cargado este legíble y vigente.
+          </div>
+        </div>
+
+        <div class="basicrow text-center roboto-b f-bmed m-top" style="font-weight: normal; padding: 5% 20%;">
+          Al Presionar "Si" el documento quedará guardado y no podrá volverlo a cargar.
+        </div>
+
+        <div class="basicrow previewcont m-top-i" style="    position: absolute;top: 75%;">
+          <div class="basicrow">
+            <a
+              (click)="warningValidationCharge = !warningValidationCharge"
+              class="btns def-i red pull-right vcenter"
+              style="margin-right: 15%;"
+            >
+              <span class="tabcell"> No </span>
+            </a>
+
+            <a
+              (click)="continueChargeDocumentsProcess()"
+              class="btns def-i red vcenter pull-left"
+              style="margin-right: 1rem; margin-left: 15%;"
+            >
+              <span class="tabcell"> Si </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow m-top-i">
+      <!-- <img width="100%" src="../../../../assets/images/pdfplaceholder.jpg"> -->
+      <iframe
+        [src]="getSecureUrl(previewUrl)"
+        frameborder="0"
+        allowfullscreen
+        style="    width: 100%;"
+        [ngStyle]="{ height: getHeightModal() }"
+      ></iframe>
+    </div>
+
+    <div class="basicrow previewcont m-top-i" style="    position: absolute;top: 88%;">
+      <div class="basicrow">
+        <a (click)="continueChargeDocuments()" class="btns def-i red pull-right vcenter">
+          <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+        </a>
+
+        <a (click)="deleteSubDocumentMultiple()" class="btns def-i red pull-right vcenter" style="margin-right: 1rem;">
+          <span class="tabcell">Eliminar</span>
+        </a>
+
+        <a (click)="reUploadDocument()" class="btns def-i red vcenter pull-left" style="margin-right: 1rem;">
+          <span class="tabcell"> Volver a Cargar </span>
+        </a>
+
+        <a
+          class="btns def-i red vcenter pull-left"
+          style="margin-right: 1rem;"
+          *ngIf="requiredDocumentsContent[indexContent].fileIds.length < requiredDocumentsContent[indexContent].maxSize"
+          (click)="uploadOtherDocument()"
+        >
+          <span class="tabcell"> Agregar </span>
+        </a>
+
+        <a
+          class="tablepages vcenter pull-left"
+          style="margin-right: 1rem;cursor: pointer;"
+          (click)="showPreviewFileMultiple(indexContent, i)"
+          *ngFor="let fileId of this.requiredDocumentsContent[indexContent].fileIds; let i = index"
+          [ngClass]="{ on: i === indexFile }"
+        >
+          <span class="tabcell">
+            {{ i + 1 }}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END POPUP VISTA PREVIA 1] -->
+
+<!--
+  [INIT POPUP VISTA PREVIA 2]>
+
+  <div class="popupbg">
+    <div class="popupcont morew-i">
+      <div class="basicrow previewcont">
+        <div class="basicrow f-black f-lbig roboto-m">
+          Vista Previa
+        </div>
+
+        <div class="basicrow f-reg f-black roboto-r m-top-u text-justify">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+        </div>
+      </div>
+
+      <div class="basicrow m-top-i">
+        <img width="100%" src="../../../../assets/images/pdfplaceholder.jpg">
+      </div>
+
+      <div class="basicrow previewcont">
+        <div class="basicrow text-center m-top">
+          <a href="#" class="pdfpreviews on"></a>
+
+          <a href="#" class="pdfpreviews"></a>
+
+          <a href="#" class="pdfpreviews"></a>
+        </div>
+
+        <div class="basicrow">
+          <div class="basicrow m-top">
+            <div class="logline full"></div>
+          </div>
+
+          <div class="basicrow m-top-i">
+            <a href="#" class="btns def-i red pull-right vcenter">
+  								<span class="tabcell">
+  									Aceptar
+  								</span>
+            </a>
+
+            <a href="#" class="btns def-i gray pull-left vcenter">
+  								<span class="tabcell">
+  									Cancelar
+  								</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <![END POPUP VISTA PREVIA 2]
+-->
+
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Digitalización de documentos
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="basicrow f-lbig f-black roboto-m">Digitalizaci&oacute;n de Documentos</div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top"><label class="label-f">&#42; Seleccione el Tipo de Documento</label></div>
+
+                <div class="basicrow">
+                  <div class="row">
+                    <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                    <!-- <div class="basicrow"> -->
+                    <!-- <div class="basicrow"> -->
+                    <!--
+                      <select class="sel-f" name="documentTypeSelected" [formControl]="form.controls['documentTypeSelected']"  (ngModelChange)="onChangeLifeline($event.valueOf())">
+                    -->
+                    <!-- <option [value]= null disabled selected hidden>Seleccionar</option> -->
+                    <!--
+                      <option [value]="documentType.name" *ngFor="let documentType of documents">{{documentType.name}}</option>
+                    -->
+                    <!-- </select> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="documentTypeSelected"
+                            [formControl]="form.controls['documentTypeSelected']"
+                            [(ngModel)]="requiredDocumentSelected"
+                            (ngModelChange)="onChangeLifelineCustom($event)"
+                          >
+                            <option
+                              [value]="documentType.id"
+                              *ngFor="let documentType of this.requiredDocumentsContent"
+                              [disabled]="documentType.isCharged"
+                              >{{ documentType.name }}</option
+                            >
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow">
+                        <div class="basicrow">
+                          <select
+                            class="sel-f"
+                            name="subDocumentTypeSelected"
+                            [(ngModel)]="subDocumentTypeSelected"
+                            [formControl]="form.controls['subDocumentTypeSelected']"
+                          >
+                            <option
+                              [value]="subDocumentType"
+                              *ngFor="let subDocumentType of subDocumentsTypeSelected"
+                              [disabled]="
+                                subDocumentType === 'Seleccionar' ||
+                                subDocumentType === 'Ingreso Suplementario de Seguridad (SSI)'
+                              "
+                              [selected]="subDocumentType === 'Seleccionar'"
+                              [hidden]="subDocumentType === 'Seleccionar'"
+                              >{{ subDocumentType }}</option
+                            >
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="digitalizecont vcenter">
+                      <div class="tabcell">
+                        <img class="dgtl-icon" width="100%" src="../../../../assets/images/lifescan-icon.png" />
+
+                        <a
+                          class="lbluebtn dgtldef vcenter"
+                          style="cursor: pointer;"
+                          [ngClass]="{ 'background-white': !validateDocumentCharged() }"
+                        >
+                          <label style="    font-weight: normal; margin-bottom: -13px; cursor: pointer;">
+                            <span class="tabcell"> Activar scanner </span>
+                            <input
+                              [disabled]="!validateDocumentCharged()"
+                              style="display: none"
+                              type="file"
+                              (change)="onFileChangeMultiple($event)"
+                            />
+                            <input
+                              #inputFiles
+                              style="display: none"
+                              type="file"
+                              (change)="onFileChangeMultiple($event)"
+                            />
+                          </label>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                  <!-- <div class="digitalizecont vcenter"> -->
+                  <!-- <div class="tabcell"> -->
+                  <!-- <img class="dgtl-icon" width="100%" src="../../../../assets/images/lifecam-icon.png"> -->
+
+                  <!-- <a class="lbluebtn dgtldef vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- Activar camara -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+                  <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasError">
+                  <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                  Su foto/documento
+                  <span class="roboto-b">{{ documentNameErrorService + ' / ' + subDocumentErrorService }}</span> no fue
+                  cargada exitosamente.<br /><br />
+
+                  <span class="roboto-b">Favor volver a intentar.</span>
+                </div>
+
+                <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasValidationError">
+                  <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                  Su foto/documento
+                  <span class="roboto-b">{{ documentName + ' / ' + subDocumentTypeSelected }}</span> no fue cargada
+                  exitosamente.<br /><br />
+                  Debe seleccionar un documento de tipo
+                  <span class="roboto-b">{{ uploadHasValidationErrorTypes }}</span
+                  ><span *ngIf="subDocumentTypeSelectedMaxSize"
+                    >, de {{ subDocumentTypeSelectedMaxSize }} pagina(s) maximo</span
+                  >
+                  y como maximo <span class="roboto-b">{{ uploadHasValidationErrorSize }}KB.</span><br /><br />
+
+                  <span class="roboto-b">Favor volver a intentar.</span>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><label class="label-f">&#42; Documentos Requeridos</label></div>
+
+                <div class="basicrow m-top-u" *ngFor="let documentType of this.requiredDocumentsContent; let i = index">
+                  <div
+                    class="basicrow"
+                    [ngClass]="{ on: documentType.isCharged && !documentType.isContinue }"
+                    *ngIf="documentType.id !== null"
+                  >
+                    <div class="dgtl-list" [ngClass]="{ on: documentType.isContinue }">
+                      <i
+                        class="fa fa-check-circle dgtlcheck"
+                        [ngClass]="{ on: documentType.isContinue }"
+                        aria-hidden="true"
+                      ></i>
+                      {{ documentType.name }}
+                    </div>
+
+                    <a (click)="showPreviewFileMultiple(i, 0)" class="dgtl-action vcenter">
+                      <span class="tabcell"> <i class="fa fa-file-image-o" aria-hidden="true"></i> </span>
+                    </a>
+
+                    <!--                    <a (click)="deleteFile(documentType.idToSearch, documentType.id)" class="dgtl-action vcenter">-->
+                    <!--                      <span class="tabcell"> <i class="fa fa-trash" aria-hidden="true"></i> </span>-->
+                    <!--                    </a>-->
+                  </div>
+
+                  <!---->
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="basicrow on"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Solicitud de Servicio Universal
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Validaci&oacute;n de Direcci&oacute;n (&#42;&#42;)
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Certificaci&oacute;n de Programa (&#42;&#42;)
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja de Transferencia de Beneficio
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Identificaci&oacute;n del Cliente
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!--
+                    <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja Multiunidad Familia (&#42;&#42;)
+                  -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+
+                  <!-- <div class="basicrow m-top-u"> -->
+                  <!-- <div class="dgtl-list"> -->
+                  <!-- <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Otros (&#42;&#42;) -->
+                  <!-- </div> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-file-image-o" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+
+                  <!-- <a href="#" class="dgtl-action vcenter"> -->
+                  <!-- <span class="tabcell"> -->
+                  <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                  <!-- </span> -->
+                  <!-- </a> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToAccountCreation()"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{ red: validateAllDocumentsChargued() }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+
+                  <!--                  <a (click)="goToHome()" class="btns def-i red pull-left vcenter">-->
+                  <!--                    <span class="tabcell">-->
+                  <!--                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar-->
+                  <!--                    </span>-->
+                  <!--                  </a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

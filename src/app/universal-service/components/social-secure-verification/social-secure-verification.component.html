@@ -1,0 +1,190 @@
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Validacion de Servicio Universal Prepago
+        </div>
+
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
+
+        <div class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <!--
+                quedaria para caso con direccion 3 intentos fallidos
+                <div *ngIf="existeSinCompletar === 'incomplete'" class="redbgbadmsg">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Su solicitud no pudo ser procesada. Su caso
+                  fue enviado al Back End.
+                </div>
+              -->
+
+              <div *ngIf="existeSinCompletar === 'incomplete'" class="redbgbadmsg">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <!-- [cambio pedido por Jhonny 24/06/2019 ] -->
+                El sistema ha detectado que este n&uacute;mero de SSN tiene un caso abierto para suscripci&oacute;n al
+                servicio de Life Line.
+              </div>
+
+              <div *ngIf="existeSinCompletar !== 'incomplete'" class="redbgbadmsg">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <!-- [cambio pedido por Jhonny 24/06/2019 ] -->
+                El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
+                Lifeline activo.
+              </div>
+
+              <div *ngIf="existeSinCompletar === 'incomplete'" class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.name }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ existeSinCompletarData.ssn }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.case }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.ban }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.accountType }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.phone }}</div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.address }}</div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.date }}</div>
+                </div>
+              </div>
+
+              <div *ngIf="existeSinCompletar !== 'incomplete'" class="userinfo full">
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{ validateSSNData.dataObject[0].name }}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{ validateSSNData.data[0].name }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.dataObject[0].ssn }}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.data[0].ssn }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de {{ getValidLabel() }}</div>
+
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{
+                      getValidLabel() === 'Caso'
+                        ? validateSSNData.dataObject[0].CASENUMBER
+                        : validateSSNData.dataObject[0].ban
+                    }}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{ getValidLabel() === 'Caso' ? validateSSNData.CASENUMBER : validateSSNData.data[0].ban }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.accountType }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{ validateSSNData.dataObject[0].phone1 }}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{ validateSSNData.data[0].subscriberNumber }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Direcci&oacute;n actual del servicio</div>
+
+                  <div *ngIf="!validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                    {{ validateSSNData.dataObject[0].address }}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                    {{ validateSSNData.data[0].address }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="basicrow roboto-r">Fecha de Activaci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right">{{ validateSSNData.data[0].lifelineActivationDate }}</div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goTo('/home')"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

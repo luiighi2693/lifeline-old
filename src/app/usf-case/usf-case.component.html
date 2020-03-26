@@ -1,0 +1,414 @@
+<!-- [INIT LOADING DATOS] -->
+
+<div class="popupbg" *ngIf="loadingRequest">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Espere un momento mientras
+            es procesada la informaci&oacute;n.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="caseDetail">
+  <div class="popupcont morew">
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+          <div class="basicrow m-top-i text-center" style="    margin-top: 15px !important;">
+            <div class="autorow roboto-r pull-left">Lifeline</div>
+            <div class="autorow roboto-r pull-right" (click)="caseDetail = undefined">X</div>
+            <br />
+            <div class="autorow roboto-r pull-left">Detalles del Caso</div>
+            <br />
+            <div
+              *ngIf="negateDescription"
+              class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+            >
+              <div class="basicrow on">
+                <div class="dgtl-list on" style="width: 110%;">
+                  <i class="fa fa-times-circle dgtlcheckred on" aria-hidden="true"></i>
+                  Su caso fue Denegado por: {{ negateDescription }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center" style="    margin-top: 15px !important;">
+            <div class="userinfo full">
+              <div class="redstat m-top">
+                <div class="autorow roboto-r pull-left">Nombre / Apellido</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.CUSTOMER_MN + ' ' + caseDetail.CUSTOMER_NAME + ' ' + caseDetail.CUSTOMER_LAST }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Fecha de Nacimiento</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.CUSTOMER_DOB === '' ? '' : moment(caseDetail.CUSTOMER_DOB).format('MM-DD-YYYY') }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">SSN</div>
+
+                <div class="autorow roboto-b pull-right">
+                  &#42;&#42;&#42;&#42;&#42;&#42;{{ caseDetail.CUSTOMER_SSN }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Nro. de Caso</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.USF_CASEID }}
+                </div>
+              </div>
+
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">BAN</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.ACCOUNT_NUMBER }}
+                </div>
+              </div>
+
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Suscriptor</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.SUSBCRIBER }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+
+                <div class="autorow roboto-b pull-right">
+                  PREPAGO M&Oacute;VIL
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Número de Teléfono</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.PHONE_1 }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="basicrow roboto-r">Direcci&oacute;n F&iacute;sica</div>
+
+                <div class="basicrow roboto-b m-top-ii">
+                  {{
+                  caseDetail.ADDRESS_1 +
+                  ' ' +
+                  caseDetail.ADDRESS_2 +
+                  ' ' +
+                  caseDetail.CITY +
+                  ' ' +
+                  caseDetail.STATE +
+                  ' ' +
+                  caseDetail.ZIPCODE
+                  }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="basicrow roboto-r">Direcci&oacute;n Postal</div>
+
+                <div class="basicrow roboto-b m-top-ii">
+                  {{
+                  caseDetail2.ADDRESS_1 +
+                  ' ' +
+                  caseDetail2.ADDRESS_2 +
+                  ' ' +
+                  caseDetail2.CITY +
+                  ' ' +
+                  caseDetail2.STATE +
+                  ' ' +
+                  caseDetail2.ZIPCODE
+                  }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Fecha de Creaci&oacute;n</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.DTS_CREATED }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Nro. de Aplicación</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.applicationId }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Estatus</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.validation_status }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Suscriptor Activo</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.activeSubscriber === 'N' ? 'No' : 'Si' }}
+                </div>
+              </div>
+
+              <div class="redstat m-top-ii">
+                <div class="autorow roboto-r pull-left">Fecha de Expiración (NV)</div>
+
+                <div class="autorow roboto-b pull-right">
+                  {{ caseDetail.eligibilityExpirationDate === '' ? '' : moment(caseDetail.eligibilityExpirationDate).format('MM-DD-YYYY') }}
+                </div>
+              </div>
+            </div>
+            <div class="basicrow" *ngIf="casiIdSaved">
+              <div class="basicrow text-center m-top-i" style="    display: flex; justify-content: center;">
+                <a
+                  (click)="continueToCase()"
+                  class="btns def-i vcenter red"
+                >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS] -->
+<div class="basicrow">
+  <app-header></app-header>
+
+  <div class="basicrow m-top m-bott">
+    <div class="container">
+      <div class="basicrow">
+        <div class="fulltitle f-btitle m-bott-i">
+          <i class="fa fa-laptop" aria-hidden="true"></i> Consultar Caso USF
+        </div>
+
+        <div class="basicrow text-center">
+          <div class="basicrow f-lbig f-black roboto-m text-left">
+            Bienvenido/a,
+            <span class="f-red" (click)="getCasesUSF()">{{ authenticationService.getCredentials().UserName }}</span>
+          </div>
+        </div>
+
+        <div class="def-filtrs">
+          <input
+            class="inp-f"
+            maxlength="50"
+            placeholder="Nro de USF"
+            type="text"
+            style="width: 125px;"
+            [(ngModel)]="numberUSF"
+            (change)="FilterByNroUsf()"
+            (keyup)="validaEnter($event)"
+          />
+
+          <div class="autorow pull-left m-right f-reg m-left m-top-u-iii">
+            <!-- <i class="fa fa-calendar filtr-calendar" aria-hidden="true"></i> -->
+            <input
+              type="text"
+              name="rangedate"
+              class="f-gray-ii roboto-b inp-f"
+              style="width: 15em;margin-left: 3em;"
+              id="rangedate"
+              placeholder="Enero 01, 2018 - Enero 23 2018"
+            />
+            <!-- <span class="f-gray-ii roboto-b">Enero 01, 2018 - Enero 23 2018</span> -->
+          </div>
+
+          <select
+            name="status_selected"
+            class="sel-f sufix ng-pristine ng-invalid ng-touched"
+            style="width:200px;"
+            [(ngModel)]="statusSelected"
+            (ngModelChange)="getCasesUSF()"
+          >
+            <option [value]="''" selected>SELECCIONAR</option>
+            <option *ngFor="let opt of status; let i = index">{{ opt }}</option>
+          </select>
+
+          <input
+            class="inp-f"
+            maxlength="50"
+            placeholder="Nombre de Cliente"
+            type="text"
+            style="width: 15em;margin-left: 3em;"
+            [(ngModel)]="nameToSearch"
+          />
+
+          <a class="btns def-i red pull-left vcenter m-left-i" (click)="getCasesUSF()" style="cursor: pointer;">
+            <span class="tabcell"> Buscar&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i> </span>
+          </a>
+
+          <a class="btns def-i blue pull-right vcenter" style="cursor: pointer;" (click)="exportTo()">
+            <span class="tabcell"> Exportar </span>
+          </a>
+        </div>
+
+        <div class="basicrow m-top-i">
+          <div class="basicrow">
+            <div class="autorow pull-left f-tabletitle f-black roboto-r">Administraci&oacute;n de mis solicitudes​</div>
+
+            <div class="autorow pull-right">
+              <a (click)="firstPage()" class="tablepages vcenter" [ngClass]="{ off: totalRowCount <= 10 }">
+                <span class="tabcell"> << </span>
+              </a>
+
+              <a (click)="previusPage()" class="tablepages vcenter" [ngClass]="{ off: totalRowCount <= 10 }">
+                <span class="tabcell"> < </span>
+              </a>
+
+              <a
+                (click)="getPage(1)"
+                class="tablepages vcenter"
+                [ngClass]="slectedfirst ? 'filterTrue' : 'filterfalse'"
+              >
+                <span class="tabcell"> {{ currentPage }} </span>
+              </a>
+
+              <a
+                (click)="getPage(2)"
+                class="tablepages vcenter"
+                [ngClass]="slectedNext ? 'filterTrue' : 'filterfalse'"
+                *ngIf="totalRowCount > 10"
+              >
+                <span class="tabcell"> {{ currentPage + 1 }} </span>
+              </a>
+
+              <a
+                a
+                (click)="getPage(3)"
+                class="tablepages vcenter"
+                [ngClass]="slectedlast ? 'filterTrue' : 'filterfalse'"
+                *ngIf="totalRowCount > 10"
+              >
+                <span class="tabcell"> {{ currentPage + 2 }} </span>
+              </a>
+
+              <a (click)="nextPage()" class="tablepages vcenter" [ngClass]="{ off: totalRowCount <= 10 }">
+                <span class="tabcell"> > </span>
+              </a>
+
+              <a (click)="lastPage()" class="tablepages vcenter" [ngClass]="{ off: totalRowCount <= 10 }">
+                <span class="tabcell"> >> </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="allcont-gline m-top">
+            <div class="tablebartitle">
+              <div class="consult-col-i consult-brline text-center vcenter"><div class="tabcell">Nro de USF</div></div>
+
+              <div class="consult-col-i consult-brline text-center vcenter"><div class="tabcell">BAN</div></div>
+
+              <div class="consult-col-ii consult-brline text-center vcenter">
+                <div class="tabcell">Fecha Registro de USF</div>
+              </div>
+
+              <div class="consult-col-iv consult-brline text-left vcenter">
+                <div class="tabcell">Nombre y Apellido Cliente</div>
+              </div>
+
+              <div class="consult-col-i consult-brline text-center vcenter"><div class="tabcell">Estatus</div></div>
+
+              <div class="consult-col-iv consult-brline text-center vcenter" style="width: 22%;"><div class="tabcell">Nro. de Aplicaci&oacute;n / <br>Fecha de Exp (NV)</div></div>
+
+              <div class="consult-col-v text-center vcenter"><div class="tabcell">Acci&oacute;n</div></div>
+            </div>
+            <!---NOTA "mostrar" ES EL  ARRAY AUX QUE CAMBIE POR "data_conten" aunq aqui abajo lo volvi a colocar -->
+
+            <div
+              *ngFor="let iten of mostrar"
+              class="tablecols {{ iten.classCss }}"
+              [ngClass]="{
+                oculta: validacionOcultarRow(iten),
+                muestra: statusSelected == 'ESTATUS' || statusSelected == iten.status
+              }"
+            >
+              <div class="consult-col-i consult-grline text-center vcenter">
+                <div class="tabcell">{{ iten.caseID }}</div>
+              </div>
+
+              <div class="consult-col-i consult-grline text-center vcenter">
+                <div class="tabcell">{{ iten.ban }}</div>
+              </div>
+
+              <div class="consult-col-ii consult-grline text-center vcenter">
+                <div class="tabcell">{{ iten.date }}</div>
+              </div>
+
+              <div class="consult-col-iv consult-grline text-left vcenter">
+                <div class="tabcell">{{ iten.fullName }}</div>
+              </div>
+
+              <div class="consult-col-i consult-brline text-center vcenter">
+                <div class="tabcell">{{ iten.status }}</div>
+              </div>
+
+              <div class="consult-col-iv consult-grline text-center vcenter" style="width: 22%;">
+                <div class="tabcell" style="text-align: center;">{{ iten.applicationId }}<br> {{iten.eligibilityExpirationDate}}</div>
+              </div>
+
+              <div class="consult-col-v text-center vcenter">
+                <div class="tabcell">
+                  <a class="act-tbutton" (click)="showDetails(iten.caseID)">
+                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!----->
+          </div>
+        </div>
+
+        <div class="basicrow m-top-i m-bott">
+          <a (click)="goTo('/home')" class="btns def-i gray pull-left vcenter">
+            <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar </span>
+          </a>
+
+          <div class="autorow pull-right roboto-b f-gray-ii f-med">{{ mostrada }} / {{ totalRowCount }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
