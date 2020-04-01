@@ -207,7 +207,7 @@
                   <a
                     (click)="goToUsfVerification()"
                     class="btns def-i pull-right vcenter gray"
-                    [ngClass]="{ red: subscriberVerificationObject.status === 'COMPLETE' && subscriberVerificationObject.activeSubscriber === 'N'}"
+                    [ngClass]="{ red: subscriberVerificationObject.status === 'COMPLETE' && subscriberVerificationObject.activeSubscriber === 'N' && !subscriberVerificationObject.HasError}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>

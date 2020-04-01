@@ -38,6 +38,17 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
         this.processValidationApplicationId = true;
       }
     }
+
+    if (this.subscriberVerificationObject.HasError) {
+      alertify.alert(
+        'Aviso',
+        // tslint:disable-next-line:max-line-length
+        'Ha ocurrido un error , su caso será eliminado.',
+        () => {
+          this.deleteCase();
+        }
+      );
+    }
   }
 
   ngOnInit() {
@@ -72,7 +83,9 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   }
 
   goToUsfVerification() {
-    if (this.subscriberVerificationObject.status === 'COMPLETE' && this.subscriberVerificationObject.activeSubscriber === 'N') {
+    if (this.subscriberVerificationObject.status === 'COMPLETE' &&
+      this.subscriberVerificationObject.activeSubscriber === 'N' &&
+      !this.subscriberVerificationObject.HasError) {
       this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
     }
   }
@@ -83,5 +96,24 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
   goHome() {
     this.processValidationNLAD = true;
+  }
+
+  deleteCase() {
+    const datos3 = {
+      method: 'DeleteCaseAllMcapi',
+      USER_ID: this.authenticationService.credentials.userid,
+      CASE_ID: this.validateSSNData.CASENUMBER
+    };
+
+    console.log(datos3);
+
+    this.usfServiceService.doAction(datos3).subscribe(
+      resp3 => {
+        console.log(resp3);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

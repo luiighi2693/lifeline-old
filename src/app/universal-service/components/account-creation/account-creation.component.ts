@@ -213,7 +213,7 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
-            'Ha ocurrido un error intentando crear la cuenta, recuerde que al segundo intento el caso será eliminado.',
+            'Ha ocurrido un error intentando crear la cuenta, recuerde que al segundo intento el caso será enviado al Back End.',
             () => {
               this.manageStep();
             }
@@ -227,28 +227,9 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
     if (this.step === 'step1') {
       this.step = 'step2';
     } else {
-      this.goToStep2();
+      this.goToHome();
+      // this.goToStep2();
     }
-  }
-
-  goToStep2() {
-    const datos3 = {
-      method: 'DeleteCaseAllMcapi',
-      USER_ID: this.authenticationService.credentials.userid,
-      CASE_ID: this.validateSSNData.CASENUMBER
-    };
-
-    console.log(datos3);
-
-    this.usfServiceService.doAction(datos3).subscribe(
-      resp3 => {
-        this.goToHome();
-      },
-      error => {
-        this.processValidation = false;
-        console.log(error);
-      }
-    );
   }
 
   goToDocumentDigitalization() {
